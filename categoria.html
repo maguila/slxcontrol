@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+ 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <!--<link rel="shortcut icon" href="image/favicon2.ico">-->
+    <link rel="icon" type="image/png" href="img/favicon.png" /> 
+
+    <title>SLXcontrol</title>
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+     <link href="css/font.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="../../assets/js/html5shiv.js"></script>
+      <script src="../../assets/js/respond.min.js"></script>
+    <![endif]-->
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="css/estilo.css" type="text/css"/>
+    <link rel="stylesheet" href="css/categoria.css" type="text/css"/>
+
+  </head>
+  <body>
+      <div id="menu"></div>
+   
+     <div id="sub-menu-cat">
+         <div class="container">
+            <div class="col-lg-1">
+              <img src="" class="cat-foto">
+            </div>
+            <div class="col-lg-4">
+              <div>
+                <label id="leyend-cat"></label>
+              </div>
+            </div>
+            <div class="col-lg-2"></div>
+            <div class="col-lg-5 sub-menu-cat-right">
+              <div class="row">
+                <label class="estado-cat ">status general <label class="num-equipos">0</label> equipos</label>
+              </div>
+              <div class="row cat-estados-num">
+                   <div class="col-lg-1">
+                      <span class="num-optimos num-estado">0</span> 
+                   </div>
+                  <div class="col-lg-5 ">
+                    <label class="estados-equipos ">equipos Funcionando </label>
+                  </div>
+                  <div class="col-lg-1">
+                    <span class="num-alerta num-estado">0</span> 
+                  </div>
+                  <div class="col-lg-5">
+                    <label class="estados-equipos ">equipos en Alerta </label>
+                  </div>
+                   <div class="col-lg-1">
+                    <span class="num-obser num-estado">0</span> 
+                  </div>
+                  <div class="col-lg-5">
+                    <label class="estados-equipos ">equipos en Observacion </label>
+                  </div>
+                  <div class="col-lg-1">
+                    <span class="num-apagados num-estado">0</span>
+                  </div>
+                  <div class="col-lg-5">
+                    <label class="estados-equipos "> equipos Apagados</label>
+                  </div>
+              </div>
+            </div>
+         </div>
+      </div>
+
+      <div id="banner-alert">
+        <div class="container">
+            <div class="contenedor-banner">
+              <marquee direction="left" scrollamount="15"><div class="mensaje-banner">
+              </div></marquee>
+            </div>
+        </div>
+      </div>
+
+      <div id="equipos-categoria">
+        <div class="container">
+          <div id="detalle_equipos-cat"></div>
+        </div>
+      </div>
+
+      </body>
+      <footer id="footer">
+        
+      </footer>
+ 
+
+    <script src="js/jquery-2.1.4.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/mustache.js"></script>
+    <script src="js/categoria.js"></script>
+    <script src="js/menu.js"></script>
+    
+   
+
+  </html>

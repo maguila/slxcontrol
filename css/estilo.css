@@ -1,0 +1,367 @@
+html{
+	position: relative;
+	min-height: 100%;
+}
+body{
+ background-color: #2F2A28;
+ margin-bottom: 72px;
+}
+
+.menu-centro{
+	text-align: center;
+	padding-top: 5px;
+}
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+.hora-sistema{
+	margin-top: 15px;
+	font-family: "futura-bold", sans-serif; font-weight: 100;
+	font-size: 14px;
+}
+.foto_perfil{
+}
+.menu-superior{
+	height: 56px;
+}
+.container{
+	width: 1260px;
+}
+.usuario-modulo{
+	padding-top: 12px;
+	font-family: "futura-bold", sans-serif; font-weight: 100;
+	font-size: 14px;
+}
+
+.logo-menu{
+	padding-top: 5px;
+}
+.hora_menu{
+	font-family: "futura-book", sans-serif; font-weight: 100;
+	font-size: 14px;
+}
+.sesion{
+	padding-left: 20px;
+}
+
+#sub-menu{
+	margin-top: 80px;
+}
+
+#sub-menu .cliente-foto{
+	margin-left: -15px;
+}
+
+#sub-menu #cliente{
+	color: white;
+	font-size: 58px;
+	font-family: "futura-book", sans-serif; font-weight: 100;
+}
+#sub-menu #fuel-cli{
+	color: white;
+	font-size: 48px;
+	font-family: "futura-book", sans-serif; font-weight: 100;
+}
+#sub-menu2{
+	margin-top: 45px;
+}
+#sub-menu2 .cliente-foto{
+	margin-left: -15px;
+}
+
+#sub-menu2 #cliente{
+	color: white;
+	font-size: 58px;
+	font-family: "futura-book", sans-serif; font-weight: 100;
+}
+#sub-menu2 #fuel-cli{
+	color: white;
+	font-size: 48px;
+	font-family: "futura-book", sans-serif; font-weight: 100;
+}
+#categorias{
+	margin-top: 60px;
+}
+.bnt-categoria{
+	padding: 7px 7px 7px 7px;
+	height: 97px;
+	margin-bottom: 80px;
+}
+.bnt-categoria:hover{
+	background-color: #CE6B00;
+	cursor: pointer;
+}
+.img-icono-cat{
+	/*height: 75px;
+	width: 70px;*/
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+.leyenda-icono-cat{
+	color: white;
+	font-size: 15px;
+	font-family: "futura-book", sans-serif; font-weight: 100;
+	padding-top: 30px;
+}
+
+.navbar{
+	margin-bottom: 0px;
+}
+
+.caja-cat{
+	width: 350px;
+	height: 350px;
+	background-color: #3B3837;
+	border-radius: 10px;
+	margin-top: 50px;
+	cursor: pointer;
+}
+.caja-cat:hover {
+	background-color: #CE6B00;
+}
+.med-caja-cat{
+	padding-top: 35px;
+	height: 100%;
+	float: none;
+	margin: 0 auto;
+}
+.legend-caja-cat{
+	padding-top: 40px;
+	color: white;
+	font-size: 25px;
+	font-family: "futura-book", sans-serif;
+	text-align: center;
+}
+.cliente-foto2{
+	padding-top: 35px;
+	padding-bottom: 35px;
+}
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+.rs{
+	padding-right: 0px !important;
+}
+.rs2{
+	padding-right: 0px !important;
+}
+.cam-h{
+	color: white;
+	padding: 10px;
+	background-color: #0095AA;
+	font-size: 30px;
+	border-radius: 5px;
+}
+.numero-cam-h{
+	margin-top: 8px;
+	margin-left: 25px;
+	width: 70px;
+	float: left;
+}
+.lgd-cam-h{
+	margin-top: 20px;
+	margin-left: 10px;
+	font-size: 16px;
+	color: white;
+	float: left;
+}
+.cam-m{
+	color: white;
+	padding: 10px;
+	background-color: #E6B54A ;
+	font-size: 18px;
+	border-radius: 5px;
+
+}
+.numero-cam-m{
+	margin-top: 8px;
+	width: 45px;
+	float: left;
+}
+.lgd-cam-m{
+	margin-top: 8px;
+	margin-left: 10px;
+	font-size: 19px;
+	color: white;
+	float: left;
+}
+.cam-l{
+	color: white;
+	padding: 10px;
+	background-color: #BF0411;
+	font-size: 18px;
+	border-radius: 5px;
+	margin-left: -12px;
+}
+.numero-cam-l{
+	margin-top: 8px;
+	width: 45px;
+	float: left;
+}
+.lgd-cam-l{
+	margin-top: 8px;
+	margin-left: 0px;
+	font-size: 19px;
+	color: white;
+	float: left;
+}
+.panel-camiones{
+	margin-top: 20px;
+}
+.estado-camion-l{
+	margin-left: -12px !important;
+	margin-top: 60px;
+}
+.espacio-ecam-l{
+	background-color: #332F2E;
+	padding-left: 0px !important;
+	margin-right: 18px;
+	margin-top: 10px;
+	width: 260px;
+	height: 123px;
+	border-radius: 10px;
+	padding-top: 13px;
+}
+.img-camion-l{
+	/*width: 175px;*/
+}
+.img-bidon-l{
+	padding-top: 12px;
+}
+.num-cam-l{
+	color: white;
+	font-size: 25px;
+}
+.div-num-cam-l{
+	margin-left: 42px;
+	margin-top: 11px;
+	position: absolute;
+}
+
+.estado-camion-m{
+	margin-left: 0px !important;
+	margin-top: 60px;
+}
+.espacio-ecam-m{
+	background-color: #332F2E;
+	padding-left: 0px !important;
+	margin-right: 30px;
+	margin-top: 10px;
+	width: 157px;
+	height: 69px;
+	border-radius: 10px;
+	padding-top: 10px;
+}
+.img-camion-m{
+	width: 97px;
+}
+.img-bidon-m{
+	padding-top: 6px;
+}
+.num-cam-m{
+	color: black;
+	font-size: 15px;7-07-2016 04:55:56
+}
+.div-num-cam-m{
+	margin-left: 23px;
+	margin-top: 5px;
+	position: absolute;
+}
+
+/*.panel-camiones{
+	display: none;
+}
+/*#sub-menu2{
+	display: none;
+}*/
+.panel-idcamion{
+	display: none;
+}
+.panel-anuncios{
+	height: 45px;
+	background-color: #3B3837;
+	border-bottom: 1.5px solid #76757A;
+}
+.izq-pag-cam{
+	padding-left: 0px !important;
+}
+.panel-detalle-camion{
+	margin-top: 30px;
+}
+/**********  Footer  ********************************************/
+#footer{
+	position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 72px;
+  background-color: #3B3837;
+  color: white;
+
+}
+.foo-left{
+	padding-left: 0px;
+}
+.foo-right{
+	padding-right: 0px;
+	padding-top: 20px;
+}
+.foo-icon{
+	font-size: 23px;
+	padding-right: 20px;
+}
+.foo-leyenda-mail{
+	font-size: 16px;
+	font-family: "futura-book", sans-serif; font-weight: 100;
+	padding-right: 20px;
+}
+.foo-leyenda-fono{
+	font-size: 14px;
+	font-family: "futura-book", sans-serif; font-weight: 100;
+}
+.icn-home{
+	float: left;
+	margin-top: 10px;
+	width: 150px;
+	height: 45px;
+	padding-top: 10px;
+	padding-left: 33.5px;
+	margin-right: 20px;
+}
+.icon-categ{
+	float: left;
+	margin-top: 10px;
+	width: 150px;
+	height: 45px;
+	padding-top: 10px;
+	padding-left: 33.5px;
+	margin-right: 20px;
+}
+.img-icon-home{
+	float: left;
+}
+.leyenda-icon-home{
+	float: left;
+	padding-top: 5px;
+	font-size: 14px;
+	font-family: "futura-book", sans-serif; font-weight: 100;
+}
+
+.icn-home:hover{
+	background-color: #CE6B00;
+	cursor: pointer;
+}
+.icon-informe:hover{
+	background-color: #CE6B00;
+	cursor: pointer;
+}
+.foo-active{
+	background-color: #CE6B00;
+}
+.img-imenu{
+	width:41px;
+	padding-right: 15px;
+}
+/********************* fin footer *********************************/

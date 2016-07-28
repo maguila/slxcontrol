@@ -1,0 +1,153 @@
+/***************  Informe  ******************/
+
+.menu_superior2{
+	background-color: #282728;
+	width: 100%;
+	height: 80px;
+	padding-top: 25px;
+	position: absolute;
+	margin-top: -18px;
+	margin-bottom: 50px;
+}
+.menu_superior2 .nav ul {
+	/*max-width: 1200px;*/
+	margin: 0; 
+	padding: 0 ;
+	list-style: none;
+	font-size: 1em;
+	font-weight: 300;
+	/*margin-left: -50px !important;*/
+}
+.menu_superior2 .nav li {
+	float: left;
+    width: 16.66666666666667%; 
+    text-align: center;
+}
+.menu_superior2 a {		
+	color: white !important;	
+	font-size: 14px;
+	text-decoration: none;
+	padding: 24px 40px 15px 40px;
+}
+.menu_superior2 a:hover {	
+	text-decoration: none;
+	background-color: #F26522;   
+}
+.menu_superior2 .icon{
+	font-size: 23px !important;
+}
+#panel_completo2{
+	margin-top: 120px;
+	margin-bottom: 100px;
+	padding-left: 50px;
+	padding-right: 50px;
+}
+.cuerpo-head-informe{
+	border:1px solid white;
+	padding-left: 20px;
+	font-size: 23px;
+	color: white;
+	margin-top: 50px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	border-radius: 5px !important;
+	-moz-border-radius: 5px !important;
+  	-webkit-border-radius: 5px !important; 
+}
+.cuerpo-equipo-informe{
+	background-color: #58585A !important;
+	height: 50px !important;
+	color: white !important;
+	border-color: #58585A !important;
+	font-size: 15px !important;
+	padding-top: 13px;
+	padding-bottom: 7px;
+	margin-top: 5px;
+	border-radius: 5px !important;
+	-moz-border-radius: 5px !important;
+  	-webkit-border-radius: 5px !important; 
+}
+.span-linea{
+	border-right: 2px solid white;
+	width: 60px !important;
+	padding-left: 22px !important;
+}
+.in-fecha{
+	margin-top: -5px;
+}
+.icalendar{
+	background-color: #282728 !important;
+	border-color: #282728 !important;	
+}
+.btn-graficar{
+	margin-top: -13px !important;
+	height: 50px !important;
+	margin-left: -8px;	
+}
+.btn-graf{
+	background-color: #F26522 !important;
+	height: 50px !important;
+	width: 117px !important;
+	border: 1px solid #F26522 !important;
+}
+.cuerpo-final-informe{
+	background-color: white !important;
+	margin-top: 50px;
+	padding-top: 40px;
+	padding-left: 30px;
+	padding-right: 30px;
+}
+.cuerpo-head-informe2{
+	font-size: 20px;
+	border: 1px solid black;
+	padding-left: 20px;
+	padding-top: 10px;
+	padding-bottom: 5px;
+	border-radius: 5px !important;
+	-moz-border-radius: 5px !important;
+  	-webkit-border-radius: 5px !important; 
+  	height: 44px;
+  	margin-bottom: 40px;
+}
+.btn-imp-informe{
+	margin-top: -10px;
+	background-color: #F26522 !important;
+	border: 1px solid #F26522 !important;
+}
+.subtitulo_cuerpo{
+	border: 1px solid black;
+	border-bottom: 1px solid black !important;
+	padding-left: 20px !important;
+	margin-left: 50px !important;
+	margin-right: 107px !important;
+	padding-top: 10px;
+	padding-bottom: 5px;
+	border-radius: 5px !important;
+	-moz-border-radius: 5px !important;
+  	-webkit-border-radius: 5px !important; 
+  	height: 40px;
+  	margin-bottom: 5px;
+}
+.subtitulo_cuerpo h3{
+	font-size: 18px !important;
+	font-weight: bold;
+}
+.tab_datos_m{
+	margin-top: 15px !important;
+	margin-left: 80px !important;
+	font-size: 16px !important;
+}
+.icon-calendar{
+	color: white;
+}
+.radio-inline{
+	/*padding-top: 5px;*/
+}
+.nom_eq{
+	font-size: 22px;
+	margin-top: -5px;
+}
+.in-fecha{
+	display: none;
+}
+/************** Fin Informe *****************/

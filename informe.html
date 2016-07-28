@@ -1,0 +1,187 @@
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+ 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!--<link rel="shortcut icon" href="image/favicon2.ico">-->
+    <link rel="icon" type="image/png" href="img/favicon.png" /> 
+
+    <title>MIMcontrol</title>
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+     <link href="css/font.css" rel="stylesheet">
+     <link href="css/informe.css" rel="stylesheet">
+      <link id="bsdp-css" href="css/datepicker3.css" rel="stylesheet">  
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="../../assets/js/html5shiv.js"></script>
+      <script src="../../assets/js/respond.min.js"></script>
+    <![endif]-->
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="css/estilo.css" type="text/css"/>
+
+  </head>
+  <body>
+    <div id="menu"></div>
+    <div class="container">
+      <div class="row">
+                <div class="cuerpo-head-informe">
+                    <span>Informe</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="cuerpo-equipo-informe">
+                    <div class="col-lg-2 nom_eq">
+                        <span class="ide_eq_1"></span>
+                    </div>
+                    <div class="col-lg-2">
+                      <!--  <label class="checkbox-inline">
+                            <input type="checkbox" id="mensajes_e1" value="ale">
+                            <span>Alertas y Mensajes</span> 
+                        </label>     -->                   
+                    </div>
+                    
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <div class="col-lg-2">
+                                <label class="radio-inline">
+                                    <input type="radio" name="radioe_1" id="Radio1e_1" value="1"> 
+                                    <span>24 hs</span>
+                                </label>                        
+                            </div>
+                            <div class="col-lg-4">
+                                <label class="radio-inline">
+                                    <input type="radio" name="radioe_1" id="Radio2e_1" value="2"> 
+                                    <span>Fecha</span>
+                                </label>
+                            </div>        
+                            <div class="col-lg-4">
+                              <div class="in-fecha">
+                                <div class="input-group date">
+                                    <input id="fecha-e1" type="text" class="form-control datepicker">
+                                    <span class="input-group-addon icon icalendar">
+                                        <i aria-hidden="true" class="icon-calendar"></i>
+                                    </span>
+                                </div>
+                              </div>
+                            </div>
+                        </div>                  
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="btn-graficar pull-right">
+                            <button href="#" class="btn btn-primary btn-graf" id="btne_1">
+                                <span class="icon">
+                                    <i aria-hidden="true" class="icon-stats"></i>
+                                </span>
+                                <span>VER</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="cuerpo-final-informe">
+                    <div class="row">
+                      <!--  <div class="cuerpo-head-informe2">
+                            <span>Informe </span> <span class="nom_eq"></span> <span>|</span> <span class="des_eq"></span>
+                            <div class="pull-right">
+                                <input type="hidden" id="id_equipo" value="0">
+                                <input type="hidden" id="ale_men" value="0">
+                                <input type="hidden" id="tipo_radio" value="0">
+                                <input type="hidden" id="t_dia" value="0">
+                                <button id="btn-impresion" class="btn btn-success btn-impresion btn-imp-informe">
+                                    <span class="icon">                                        
+                                        <i aria-hidden="true" class="icon-print"></i>
+                                    </span>
+                                     Imprimir
+                                </button>
+                            </div>
+                        </div>-->
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12" id="Equipo_1_diario" style="height:350px;margin-bottom:50px;margin-left:20px;"></div>
+                        <input type="hidden" id="Equipo_1_diario_input" value="0" />
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12" id="Equipo_1_fechas" style="height:350px;margin-bottom:50px;"></div>
+                        <input type="hidden" id="Equipo_1_fechas_input" value="0" />
+                    </div>
+                    <div class="row">
+                        <div id="info-men-al">
+                            <input type="hidden" id="input_men-al" value="1" />
+                            <div class="row">
+                                <!--<div class="col2" data-bind="dxCircularGauge: gaugeRequestsNumberOptions"></div>-->
+                                <div class="col-md-12">
+                                    <div class="panel panel-alerta">
+                                      <div class="panel-heading subtitulo_cuerpo">
+                                        <h3 class="panel-title">Alertas</h3>
+                                      </div>
+                                      <div class="panel-body-alerta">
+                                            <table class="tablaDatos tab_datos_m"  id="tblDatos">
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+                                      </div>
+                                    </div>
+                                </div>                        
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="panel panel-mensaje">
+                                      <div class="panel-heading subtitulo_cuerpo">
+                                        <h3 class="panel-title">Comentarios</h3>                                
+                                      </div>
+                                      <div class="panel-body-mensaje">
+                                        <table class="tablaDatosmensaje tab_datos_m"  id="tblDatosmensaje">
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+  </body>
+
+      <footer id="footer">
+        
+      </footer>
+ 
+
+    <script src="js/jquery-2.1.4.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/mustache.js"></script>
+    <script src="js/menu.js"></script>
+    <script src="js/informe.js"></script>
+    <script src="js/globalize.min.js"></script>
+    <script src="js/dx.chartjs.js"></script>
+     <script src="js/graficos.js"></script>
+     <script src="js/bootstrap-datepicker.js"></script>
+    <script src="js/locales/bootstrap-datepicker.es.js" charset="UTF-8"></script>
+
+    <script type="text/javascript">
+
+             $('.datepicker').datepicker({
+                format: "m/d/yyyy",
+                endDate: "today",
+                todayBtn: "linked",
+                language: "es",
+                autoclose: true,
+                todayHighlight: true
+            });
+    </script> 
+   
+
+  </html>

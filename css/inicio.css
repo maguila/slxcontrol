@@ -1,0 +1,99 @@
+ body{
+    /*background: url(../image/bt_image00_home.jpg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    color: white;*/   
+    /*text-transform: uppercase !important; */
+   font-family: "futura", sans-serif; font-weight: 100;
+    background-color: #211915;
+  } 
+
+  .form-signin {
+    max-width: 400px;
+    padding-top: 140px;
+    margin: 0 auto;   
+  }
+  .form-signin .form-signin-heading,
+  .form-signin .checkbox {
+    margin-bottom: 10px;
+  }
+  .form-signin .checkbox {
+    font-weight: normal;
+  }
+  .form-signin .form-control {
+    width: 265px;
+    position: relative;
+    font-size: 16px;
+    height: auto;
+    padding: 7px;
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+  }
+  .form-signin .form-control:focus {
+    z-index: 2;
+  }
+  .form-signin input[type="text"] {
+    margin-bottom: 5px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  .form-signin input[type="password"] {
+    margin-bottom: 5px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+  .btn-block{
+    margin-left: -18px;
+    width: 130px;
+    height: 40px;
+    background-color: #F26522;
+    border-color: #F26522;
+     font-family: "futura-pt-condensed", sans-serif;
+  }
+  #mensaje{
+    display: none;
+     width: 265px;
+     margin-bottom: 5px;
+  }
+  /*.fondo_cuerpo{
+    max-width: 600px;
+    margin: 0 auto;
+    padding-top: 10px;
+     background: url(../img/panel-ico.png) no-repeat;
+    background-size: 150px 150px;
+    background-position: 101%;
+  }*/
+  .logo-ico{
+    width: 130px;
+   
+  }
+  .imagen-especial{
+    position: fixed;
+    margin-top: 160px;
+    margin-left: 720px;
+     z-index: -1;
+  }
+  .logo{
+    margin-bottom: 5px;
+  }
+  .footer{
+    color: white; 
+    width: 265px;
+    font-size: 11px;
+    text-align: center;   
+    text-transform: uppercase !important;
+  }
+  .empresa{
+    width: 265px;
+    height: 40px;
+    background-color: #3B3837;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 5px; 
+    text-transform: uppercase !important;   
+    letter-spacing: 5px;
+  }

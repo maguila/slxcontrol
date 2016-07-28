@@ -1,0 +1,245 @@
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+ 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+     <!--<link rel="shortcut icon" href="image/favicon2.ico">-->
+    <link rel="icon" type="image/png" href="img/favicon.png" /> 
+
+    <title>SLXcontrol</title>
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+     <link href="css/font.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="../../assets/js/html5shiv.js"></script>
+      <script src="../../assets/js/respond.min.js"></script>
+    <![endif]-->
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="css/estilo.css" type="text/css"/>
+    <link rel="stylesheet" href="css/controlador.css" type="text/css"/>
+
+  </head>
+  <body>
+      <div id="menu"></div>
+
+
+      <div id="banner-alert">
+        <div class="container">
+            <div class="contenedor-banner">
+              <marquee direction="left" scrollamount="15"><div class="mensaje-banner">
+              </div></marquee>
+            </div>
+        </div>
+      </div>
+
+      <div id="controlador-detalle">
+        <div class="container">
+          <div class="col-lg-2">
+            <div class="row">
+              <div class="img-equipo-cont">
+                  <img src="" class="detimg-cont">
+              </div>
+            </div>
+            <div class="row">
+              <div class="nom-det-cont">
+                <label class="leyend-nom-cont"></label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="btn-cont">
+                <div class="btn-det btn-iz">
+                  <span class="icon-video-camera"></span>
+                </div>
+                <div class="btn-det">
+                   <span class="icon-cog"></span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="obser-cont">
+                <div class="col-lg-10">
+                  <label class="titulo-obser">Observaciones</label>
+                </div>
+                <div class="col-lg-2">
+                  <div class="btn-new-obs">+</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="new-coment">
+                <textarea class="text-coment form-control" rows="3"></textarea>
+                 <button type="button" class="btn btn-success pull-right btn-coment">Enviar</button>
+                <button type="button" class="btn btn-danger pull-right btn-cancel">Cancelar</button>
+               
+              </div>
+              <div class="modulo-coment" id="mod-coment">  
+                
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-10">
+          <div class="estado-desconec">
+             <div class="carga_eq">  
+                <div class="circularG_top">
+                    <div class="circularG circularG_1">
+                    </div>
+                    <div class="circularG circularG_2">
+                    </div>
+                    <div class="circularG circularG_3">
+                    </div>
+                    <div class="circularG circularG_4">
+                    </div>
+                    <div class="circularG circularG_5">
+                    </div>
+                    <div class="circularG circularG_6">
+                    </div>
+                    <div class="circularG circularG_7">
+                    </div>
+                    <div class="circularG circularG_8">
+                    </div>
+                </div>
+                <span class="letra_circulo">Esperando conectar al Controlador</span>
+            </div>
+          </div>
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="modulo-temp">
+                  <div class="circ-temp">0</div>
+                  <div class="subtitulo-circ-temp">temperatura</div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="modulo-panel-fot">
+                  <div class="titulo-fot"><span >Panel Solar</span></div>
+                  <div class="imagen-panel-fot">
+                    <img src="img/iconos-cont/icono-panel.png">
+                     <div class="animate-load"></div>
+                  </div>
+                  <div class="subtitulo-fot"><span > 0%</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="modulo-bateria">
+                  <div class="titulo-bat">
+                    <span>Bateria</span>
+                  </div>
+                  <div class="img-volt-bateria">
+                    <div class="col-lg-6">
+                      <div class="v-bateria pos-vol">
+                        <img src="img/iconos-cont/volt.png">
+                        <canvas class="linea_corriente" id="bat_volt" width="120" height="120"></canvas>
+                        <div class="vol-bat num-graf">0</div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="a-bateria pos-amp">
+                        <img src="img/iconos-cont/ampere-bat.png">
+                        <canvas class="linea_corriente2" id="bat_amp" width="120" height="120"></canvas>
+                        <div class="amp-bat num-graf">0</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="modulo-load">
+                  <div class="img-volt-load">
+                    <div class="col-lg-6 centro-line">
+                      <div class="v-load pos-vol post-centro-v">
+                        <img src="img/iconos-cont/volt.png">
+                        <canvas class="linea_corriente" id="load_volt" width="120" height="120"></canvas>
+                        <div class="vol-load num-graf">0</div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="a-load post-centro-a">
+                        <img src="img/iconos-cont/ampere.png">
+                        <canvas class="linea_corriente2" id="load_amp" width="120" height="120"></canvas>
+                        <div class="amp-load num-graf">0</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="modulo-consumo">
+                  <div class="titulo-bat">
+                    <span>Consumo</span>
+                  </div>
+                  <div class="img-volt-consumo">
+                    <div class="col-lg-6">
+                      <div class="v-consumo pos-vol">
+                        <img src="img/iconos-cont/volt.png">
+                        <canvas class="linea_corriente" id="panel_volt" width="120" height="120"></canvas>
+                        <div class="vol-con num-graf">0</div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="a-consumo pos-amp">
+                        <img src="img/iconos-cont/ampere.png">
+                        <canvas class="linea_corriente2" id="panel_amp" width="120" height="120"></canvas>
+                        <div class="amp-con num-graf">0</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="modulo-ibat">
+                  <img src="img/iconos-cont/icono-bat.png">
+                  <div class="animate-bat"></div>
+                </div>
+                <div class="subtitulo-ibat">
+                  carga bateria <span class="car-bat">0 %</span>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="col-lg-4"><div class="linea-iz"></div></div>
+                <div class="col-lg-4">
+                  <div class="est-centro">
+                    regulador
+                  </div>
+                </div>
+                <div class="col-lg-4"><div class="linea-de"></div></div>
+              </div>
+              <div class="col-lg-4">
+                 <div class="modulo-icons">
+                  <img src="img/iconos-cont/icono-cons.png">
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      </body>
+      <footer id="footer">
+        
+      </footer>
+ 
+
+    <script src="js/jquery-2.1.4.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/mustache.js"></script>
+    <script src="js/canvas.js"></script>
+    <script src="js/controlador.js"></script>
+    <script src="js/menu.js"></script>
+    
+   
+
+  </html>

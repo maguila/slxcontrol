@@ -1,0 +1,30 @@
+<script id="categorias-inicio" type="text/template">
+	<div class="col-lg-3">
+	    <div class="bnt-categoria" id="btn-{{scat}}">
+	      <div class="col-lg-5">
+	      <img src="img/iconos-menu/{{scat}}.png" class="img-icono-cat">
+	      </div>
+	      <div class="col-lg-5">
+	        <div class="leyenda-icono-cat" id="leyenda-icono-{{id}}"></div>
+	      </div>
+	    </div>
+	  </div>
+</script>
+<script id="categorias-ini" type="text/template">
+          <div class="equip-cat-des" id="btn-{{snom}}">
+            <div class="row">
+              <img src="img/iconos-menu/Icono-{{scat}}.png" class="imagen-cat" id="ide-img-{{id}}">
+            </div>
+            <div class="row">
+              <div class="nombre-eqp-cat" id="leyenda-{{snom}}">{{nom}}</div>
+            </div>
+          </div>
+</script>
+<script id="coment-temp" type="text/template">
+	<div class="coment-des">
+      <div id="fecha-coment-{{ide}}">
+      </div>
+      <div id="mensaje-coment-{{ide}}">
+      </div>
+    </div>
+</script>

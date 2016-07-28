@@ -1,0 +1,89 @@
+<script id="template" type="text/template">
+<nav class="navbar navbar-default navbar-top " role="navigation">
+            <div class="container"> 
+              <div class="menu-superior">
+                <div class="row">
+                    <div class="col-lg-2">
+                      <img alt="Brand" src="img/logo.png" class="logo-menu" width="150">
+                    </div>             
+                    <div class="col-lg-5 col-lg-offset-2">   
+                      <div class="menu-centro">
+                        <div class="col-lg-1">
+                            <image class="foto_perfil" src="archivos/perfil/default.jpg" id="fp" width="60">
+                        </div>                    
+                        <div class="col-lg-10 usuario-modulo">
+                        
+                           <label class="nombre-usuario"></label>
+                           <span>|</span>
+                           <label class="nombre-empresa"></label>
+                           <span class="sesion">
+                               <a href="php/cerrar_session.php">
+                                   <span class="icon-cancel-circle"></span>
+                                </a>
+                            </span>
+                        </div>
+                      </div>
+                         
+                    </div>
+                     <div class="col-lg-3">
+                         <label id="hora-sistema" class="pull-right hora-sistema"></label> 
+                    </div>   
+                    
+                </div>
+                 
+              </div>
+            </div>
+        </nav>
+</script>
+<script id="foo" type="text/template">
+  <div class="container">
+          <div class="col-lg-8 foo-left">
+            <div class="icn-home foo-active">
+              <div class="img-icon-home">
+                <!--  <img src="img/iconos-menu/icon-home.png" class="img-imenu"> -->
+                <span class="icon-home foo-icon"></span>
+              </div>
+              <div class="leyenda-icon-home">
+                <span>Home</span>
+              </div>
+            </div>
+            <div class="icn-home iuser">
+              <div class="img-icon-home">
+                <!--<img src="img/iconos-menu/icon-usuario.png" class="img-imenu">-->
+                <span class="icon-user8 foo-icon"></span>
+              </div>
+              <div class="leyenda-icon-home">
+                <span>Usuarios</span>
+              </div>
+            </div>
+            <div class="menu-footer">
+              <div class="icon-categ  icon-informe">
+                <div class="img-icon-home">
+                  <!--<img src="img/iconos-menu/icon-informe.png" class="img-imenu">-->
+                  <span class="icon-file-text foo-icon"></span>
+                </div>
+                <div class="leyenda-icon-home">
+                  <span>Informe</span>
+                </div>
+              </div>
+              <div class="icon-categ">
+                <div class="img-icon-home">
+                 <!-- <img src="img/iconos-menu/icon-gps.png" class="img-imenu">-->
+                  <span class="icon-location foo-icon"></span>
+                </div>
+                <div class="leyenda-icon-home">
+                  <span>GPS</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 foo-right">
+            <div class="pull-right">
+              <span class="icon-envelope foo-icon"></span>
+              <label class="foo-leyenda-mail ">soporte@solarlex.cl</label>
+              <span class="icon-phone3 foo-icon" ></span>
+              <label class="foo-leyenda-fono">56-2-2401-7458</label>
+            </div>
+          </div>
+        </div>
+</script>
