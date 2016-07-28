@@ -25,9 +25,17 @@
   <div class="container">
 
     <?php
+
         include("../connection.php");
 
         $mensaje   = "";
+        $permisos = substr(sprintf('%o', fileperms('../')), -4);
+
+
+        if($permisos != '0777'){
+          $mensaje ="<div class='alert alert-warning'> Los permisos de la carpeta slxcontrol deben ser <b>777</b> (correr comando <b>$ chmod -R 777 slxcontrol</b>) </div>";
+        }
+
 
         if($_POST["accion"] == "guardar"){
           $mensaje ="<div class='alert alert-success'> Datos guardados correctamente</div>";
@@ -43,9 +51,7 @@
               $mensaje ="<div class='alert alert-info'> Conexion probada exitosamente </div>";
               guardar_xml();
             }
-            //guardar_xml();
         }
-
 
         $path_xml = trim(shell_exec("find /var/www/html/ -name configuracion.xml"));
         $xml      = simplexml_load_file($path_xml);
@@ -55,7 +61,7 @@
         $usuario   = $xml->mysql->usuario;
         $password  = $xml->mysql->password;
         $path_principal = $xml->archivos->pathPrincipal;
-
+        $delay          = $xml->archivos->delay;
 
 
         function guardar_xml(){
@@ -67,6 +73,7 @@
           $xml->mysql->usuario    = trim($_POST['usuario']);
           $xml->mysql->password   = trim($_POST['password']);
           $xml->archivos->pathPrincipal = trim($_POST['path_principal']);
+          $xml->archivos->delay         = trim($_POST['delay']);
           file_put_contents($path_xml ,$xml->asXML());
         }
 
@@ -122,6 +129,11 @@
           <div class="form-group">
             <label for="">Path Principal de Trabajo (c++)</label>
             <input name="path_principal" class="form-control" value="<?php echo $path_principal; ?>" autocomplete="off"/>
+          </div>
+
+          <div class="form-group">
+            <label for="">Tiempo de espera entre lecturas</label>
+            <input name="delay" class="form-control" value="<?php echo $delay; ?>" autocomplete="off"/>
           </div>
 
         </div>

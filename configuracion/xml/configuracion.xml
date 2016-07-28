@@ -8,5 +8,6 @@
   </mysql>
   <archivos>
     <pathPrincipal>/var/www/html/mimcontrol/configuracion/c++/</pathPrincipal>
+    <delay>3</delay>
   </archivos>
 </conf>
