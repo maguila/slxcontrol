@@ -31,7 +31,6 @@
         $mensaje   = "";
         $permisos = substr(sprintf('%o', fileperms('../')), -4);
 
-
         if($permisos != '0777'){
           $mensaje ="<div class='alert alert-warning'> Los permisos de la carpeta slxcontrol deben ser <b>777</b> (correr comando <b>$ chmod -R 777 slxcontrol</b>) </div>";
         }
