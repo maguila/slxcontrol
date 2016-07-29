@@ -402,7 +402,7 @@ int main() {
         guardar_datos();
 			}
 		}
-		sleep(1);
+		sleep(30);
 	}
 	return 0;
 }
