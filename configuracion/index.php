@@ -132,7 +132,7 @@
           </div>
 
           <div class="form-group">
-            <label for="">Tiempo de espera entre lecturas</label>
+            <label for="">Tiempo de espera entre lecturas (segundos)</label>
             <input name="delay" class="form-control" value="<?php echo $delay; ?>" autocomplete="off"/>
           </div>
 

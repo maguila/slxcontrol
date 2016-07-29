@@ -54,7 +54,7 @@ string dat;
 
 string directorio_principal;
 string directorio_host_cfg;
-string fichero_salida_json;
+string configuracion_delay;
 
 string server;
 string user;
@@ -376,7 +376,7 @@ void set_configuracion_xml(string path_xml){
 
   directorio_principal = obtener_valor_xml_conf(path_xml, "archivos->pathPrincipal");
   directorio_host_cfg  = obtener_valor_xml_conf(path_xml, "archivos->hostcfg");
-  fichero_salida_json  = obtener_valor_xml_conf(path_xml, "archivos->json");
+  configuracion_delay  = obtener_valor_xml_conf(path_xml, "archivos->delay");
 }
 
 
@@ -402,7 +402,9 @@ int main() {
         guardar_datos();
 			}
 		}
-		sleep(30);
+
+    int delay = atoi(configuracion_delay.c_str());
+		sleep(delay);
 	}
 	return 0;
 }
