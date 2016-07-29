@@ -117,7 +117,7 @@
             $clase_tr = $_GET['cat'] == $row['cp_id'] ? 'info' : '' ;
 
 
-            
+
             echo "<tr> " .
                  "<form action='camposMant.php' method='post'>" .
                  "<input type='hidden' name='id' value='".$row['id'] ."'></input> " .
@@ -145,7 +145,7 @@
   </div>
 
   <br></br>
-  <div style="font-size: 12px;" class="text-center"> <?php echo "MimControl &copy; - " . date("Y") ?></div>
+  <div style="font-size: 12px;" class="text-center"> <?php echo "slxcontrol &copy; - " . date("Y") ?></div>
 
 </body>
 

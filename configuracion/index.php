@@ -143,7 +143,7 @@
 
 
       <br></br>
-      <div style="font-size: 12px;" class="text-center"> <?php echo "MimControl &copy; - " . date("Y") ?></div>
+      <div style="font-size: 12px;" class="text-center"> <?php echo "slxcontrol &copy; - " . date("Y") ?></div>
 
     </div>
 

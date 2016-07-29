@@ -396,7 +396,7 @@ int main() {
 		for(int j = 0; j < equipos; j++){
       //COMENTARIO PARA PRUEBAS
       //codigo_desde_arduino = "slx01,1,2,3,4,5";
-			//recibir_desde_arduino(ips[j],j);
+			recibir_desde_arduino(ips[j],j);
 			if(codigo_desde_arduino != "null"){
         mensaje_consola("\nINICIO GUARDADO DE DATOS ... " + equipos_array[j].getNombre());
         guardar_datos();
