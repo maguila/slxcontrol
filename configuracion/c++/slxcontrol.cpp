@@ -385,26 +385,26 @@ int main() {
   if(!MODO_DEBUG)
     std::cout << "MODO DEBUG DESACTIVADO, NO SE MOSTRARAN MENSAJES. PARA ACTIVAR, CAMBIAR VARIABLE MODO_DEBUG=true " << std::endl;
 
-	  int x=0;
-	  while(x==0){
+    int x=0;
+    while(x==0){
 
-    string path_xml = get_resultado_comando_linux("find /var/www/html/ -name configuracion.xml");
-    set_configuracion_xml(path_xml);
+      string path_xml = get_resultado_comando_linux("find /var/www/html/ -name configuracion.xml");
+      set_configuracion_xml(path_xml);
 
-    leer_direcciones_ip();
+      leer_direcciones_ip();
 
-    for(int j = 0; j < equipos; j++){
-      //COMENTARIO PARA PRUEBAS
-      //codigo_desde_arduino = "slx01,1,2,3,4,5";
-      recibir_desde_arduino(ips[j],j);
-      if(codigo_desde_arduino != "null"){
-        mensaje_consola("\nINICIO GUARDADO DE DATOS ... " + equipos_array[j].getNombre());
-        guardar_datos();
+      for(int j = 0; j < equipos; j++){
+        //COMENTARIO PARA PRUEBAS
+        //codigo_desde_arduino = "slx01,1,2,3,4,5";
+        recibir_desde_arduino(ips[j],j);
+        if(codigo_desde_arduino != "null"){
+          mensaje_consola("\nINICIO GUARDADO DE DATOS ... " + equipos_array[j].getNombre());
+          guardar_datos();
+        }
       }
-    }
 
-    int delay = atoi(configuracion_delay.c_str());
-		sleep(delay);
-	}
-	return 0;
+      int delay = atoi(configuracion_delay.c_str());
+      sleep(delay);
+    }
+    return 0;
 }
