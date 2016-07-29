@@ -385,8 +385,8 @@ int main() {
   if(!MODO_DEBUG)
     std::cout << "MODO DEBUG DESACTIVADO, NO SE MOSTRARAN MENSAJES. PARA ACTIVAR, CAMBIAR VARIABLE MODO_DEBUG=true " << std::endl;
 
-	int x=0;
-	while(x==0){
+	  int x=0;
+	  while(x==0){
 
     string path_xml = get_resultado_comando_linux("find /var/www/html/ -name configuracion.xml");
     set_configuracion_xml(path_xml);
