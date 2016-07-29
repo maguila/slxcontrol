@@ -2,7 +2,7 @@
 
 >instalacion y configuracion
 
-### Creacion e import de base de datos
+### Creacion e importar de base de datos
 
 ```
 mysql> create database slxcontrol;
