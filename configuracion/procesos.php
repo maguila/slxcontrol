@@ -28,13 +28,19 @@
     <?php
         include("../connection.php");
 
+
+        $accion = $_POST["accion"];
         $mensaje   = "";
 
-        if($_POST["accion"] == "guardar"){
-            $mensaje ="<div class='alert alert-danger'> Proceso detenido exitosamente correctamente</div>";
+        $path_xml = trim(shell_exec("find /var/www/html/ -name configuracion.xml"));
+        $xml      = simplexml_load_file($path_xml);
+        $path_principal = $xml->archivos->pathPrincipal;
 
-        }else if($_POST["accion"] == "probar"){
-            $mensaje ="<div class='alert alert-success'> Proceso Iniciado exitosamente</div>";
+
+        if($accion == "iniciar"){
+           $cmd = "nohup ".$path_principal."ejecutable &";
+           shell_exec($cmd);
+           $mensaje ="<div class='alert alert-info'> Proceso iniciado correctamente </div>";
         }
 
      ?>
@@ -53,6 +59,7 @@
 
         <div>
           <h2> Procesos del Sistema </h2>
+          <h4> Path de c++: <small><?php echo $path_principal ?></small>   </h4>
           <hr></hr>
 
           <label>Salida batch</label>
@@ -60,13 +67,10 @@
           </textarea>
           <br></br>
 
-          <button class="btn btn-danger" name="accion" value="guardar"> Detener Proceso</button>
-          <button class="btn btn-primary" name="accion" value="probar"> Iniciar Proceso</button>
-
-
+          <button class="btn btn-danger" name="accion" value="detener"> Detener Proceso</button>
+          <button class="btn btn-primary" name="accion" value="iniciar"> Iniciar Proceso</button>
 
         </div>
-
 
         </form>
       </div>

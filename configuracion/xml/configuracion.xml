@@ -7,7 +7,7 @@
     <password>mysql</password>
   </mysql>
   <archivos>
-    <pathPrincipal>/var/www/html/mimcontrol/configuracion/c++/</pathPrincipal>
+    <pathPrincipal>/var/www/html/slxcontrol/configuracion/c++/</pathPrincipal>
     <delay>3</delay>
   </archivos>
 </conf>
