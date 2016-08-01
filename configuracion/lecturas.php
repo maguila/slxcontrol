@@ -42,13 +42,16 @@
           <th class="active">cp_oid</th>
           <th class="active">Fecha Normal</th>
           <th class="active">id_equipo</th>
-          <th class="active">cp_volt1</th>
-          <th class="active">cp_volt2</th>
-          <th class="active">cp_volt3</th>
-          <th class="active">cp_amp1</th>
-          <th class="active">cp_amp2</th>
-          <th class="active">cp_amp3</th>
-          <th class="active">cp_temp</th>
+          <th class="bg-primary">campo1</th>
+          <th class="bg-primary">campo2</th>
+          <th class="bg-primary">campo3</th>
+          <th class="bg-primary">campo4</th>
+          <th class="bg-primary">campo5</th>
+          <th class="bg-primary">campo6</th>
+          <th class="bg-primary">campo7</th>
+          <th class="bg-primary">campo8</th>
+          <th class="bg-primary">campo9</th>
+          <th class="bg-primary">campo10</th>
         </tr>
       </thead>
       <tbody>
@@ -74,13 +77,16 @@
                  "<td> <input type='hidden' name='cp_oid' value='".$row['cp_oid'] ."'></input> ".$row['cp_oid']. "</td>" .
                  "<td> <input type='hidden' name='cp_oid' value='". $row['cp_oid']  ."'></input> ". $fecha_convertida  . "</td>" .
                  "<td> <input type='hidden' name='cp_id_perfil_cont' value='".$row['cp_id_perfil_cont']."'></input> ". $nombre_equipo  . "</td>" .
-                 "<td> <input type='hidden' name='cp_volt1'  value='".$row['cp_volt1'] ."'></input> ".$row['cp_volt1']. "</td>" .
-                 "<td> <input type='hidden' name='cp_volt2' value='".$row['cp_volt2']."'></input> ".$row['cp_volt2']. "</td>" .
-                 "<td> <input type='hidden' name='cp_volt3' value='".$row['cp_volt3']."'></input> ".$row['cp_volt3']. "</td>" .
-                 "<td> <input type='hidden' name='cp_amp1' value='".$row['cp_amp1']."'></input> ".$row['cp_amp1']. "</td>" .
-                 "<td> <input type='hidden' name='cp_amp2' value='".$row['cp_amp2']."'></input> ".$row['cp_amp2']. "</td>" .
-                 "<td> <input type='hidden' name='cp_amp3' value='".$row['cp_amp3']."'></input> ".$row['cp_amp3']. "</td>" .
-                 "<td> <input type='hidden' name='cp_temp' value='".$row['cp_temp']."'></input> ".$row['cp_temp']. "</td>" .
+                 "<td> <input type='hidden' name='cp_campo1'  value='".$row['cp_campo1'] ."'></input> ".$row['cp_campo1']. "</td>" .
+                 "<td> <input type='hidden' name='cp_campo2' value='".$row['cp_campo2']."'></input> ".$row['cp_campo2']. "</td>" .
+                 "<td> <input type='hidden' name='cp_campo3' value='".$row['cp_campo3']."'></input> ".$row['cp_campo3']. "</td>" .
+                 "<td> <input type='hidden' name='cp_campo4' value='".$row['cp_campo4']."'></input> ".$row['cp_campo4']. "</td>" .
+                 "<td> <input type='hidden' name='cp_campo5' value='".$row['cp_campo5']."'></input> ".$row['cp_campo5']. "</td>" .
+                 "<td> <input type='hidden' name='cp_campo6' value='".$row['cp_campo6']."'></input> ".$row['cp_campo6']. "</td>" .
+                 "<td> <input type='hidden' name='cp_campo7' value='".$row['cp_campo7']."'></input> ".$row['cp_campo7']. "</td>" .
+                 "<td> <input type='hidden' name='cp_campo8' value='".$row['cp_campo8']."'></input> ".$row['cp_campo8']. "</td>" .
+                 "<td> <input type='hidden' name='cp_campo9' value='".$row['cp_campo9']."'></input> ".$row['cp_campo9']. "</td>" .
+                 "<td> <input type='hidden' name='cp_campo10' value='".$row['cp_campo10']."'></input> ".$row['cp_campo10']. "</td>" .
                  "</form> " .
                  "</tr>";
           }

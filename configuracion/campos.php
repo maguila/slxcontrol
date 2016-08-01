@@ -89,12 +89,12 @@
     <table class="table table-bordered table-hover">
       <thead>
         <tr>
-          <th>Nombre Campo</th>
-          <th>Descripción</th>
-          <th>Tipo Campo</th>
-          <th>Categoría</th>
-          <th class="text-center">Orden Lectura</th>
-          <th>Acciones</th>
+          <th class="active">Nombre Campo</th>
+          <th class="active">Descripción</th>
+          <th class="active">Tipo Campo</th>
+          <th class="active">Categoría</th>
+          <th class="active text-center">Orden Lectura</th>
+          <th class="active">Acciones</th>
         </tr>
       </thead>
       <tbody>

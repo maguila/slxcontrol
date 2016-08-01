@@ -29,6 +29,11 @@
     include("../php/connection.php");
     $conn = crearConexion();
 
+
+    $path_xml = trim(shell_exec("find /var/www/html/ -name configuracion.xml"));
+    $xml      = simplexml_load_file($path_xml);
+
+
     $disable = $_POST['accion'] == 'eliminar' ? 'disabled' : '';
 
     $ok = false;
@@ -49,7 +54,7 @@
     }
 
     if($ok)
-      header( 'Location: campos.php' );
+      header( 'Location: campos.php?cat=' . $_POST['categorias_id'] );
 
   ?>
 
@@ -67,10 +72,11 @@
         <span>Guardar Cambios</span>
       </button>
 
-      <a href="campos.php" class="btn btn-danger" style="margin-bottom: 15px;">
+      <a href="campos.php?cat=<?php echo $_POST['categorias_id']; ?>" class="btn btn-danger" style="margin-bottom: 15px;">
         <span class="glyphicon glyphicon-log-out"></span>
         <span>Volver</span>
       </a>
+
     </div>
 
 
@@ -83,7 +89,7 @@
               <select class="form-control" name="campo" value="<?php echo $_POST['campo']; ?>" <?php echo $disable; ?>>
                 <option selected="false">Seleccione Campo de Lectura</option>
                 <?php
-                  $sql="SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'MIMcontrol' AND TABLE_NAME = 'tb_colection' order by COLUMN_NAME ";
+                  $sql="SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = '".$xml->mysql->esquema."' AND TABLE_NAME = 'tb_colection' AND COLUMN_NAME not in('cp_id', 'cp_oid') ";
                   $result = $conn->query($sql);
                   while($row = $result->fetch_assoc()){
                     if( $row['COLUMN_NAME'] == $_POST['campo'])
@@ -105,7 +111,7 @@
               <label>Tipo Campo</label>
               <select class="form-control" name="tipo_campo" value="<?php echo $_POST['tipo_campo']; ?>" <?php echo $disable; ?> >
                 <?php
-                  $array = array("AMPERAJE", "DIGITAL", "HORAS", "LITROS" ,"TEMPERATURA", "VOLTAJE");
+                  $array = array("AMPERAJE", "DIGITAL", "HORAS", "LITROS" ,"TEMPERATURA", "VOLTAJE", "DESCRIPTIVO");
                   echo "<option>Seleccione Tipo</option>";
                   foreach ($array as $option) {
                     if($_POST['tipo_campo'] == $option)

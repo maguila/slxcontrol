@@ -106,8 +106,7 @@ void leer_direcciones_ip(){
     Equipos equipo;
     equipo.set_values(row[0], row[1], row[2]); //Inicializa el objeto equipo
     ips[index] = row[0]; //SET LA IP PARA QUE SE HAGA EL snmpget
-
-    std::cout << "/* message */ " << index << std::endl;
+    //std::cout << "/* message */ " << index << std::endl;
     equipos_array[index] = equipo; //Agregar al arreglo global de objetos equipos
     equipos++;
     index++;
@@ -136,9 +135,9 @@ int recibir_desde_arduino(string ip_temp, int i){
   strcpy(cadena4,"null");
 
   //cmd =  "snmpget -v 2c -c solarlex "+ ip +" sysLocation.0 | tee "+ directorio_principal +"/datalog.txt";
-
-  //DESCOMENTAR AL PROBAR
+  //DESCOMENTAR AL PROBAR EL VALOR CORRECTO ES 1.3.6.1.2.1.118.1.1.101.1
   sprintf(cmd,"snmpget -v 2c -c solarlex %s  1.3.6.1.2.1.118.1.1.101.1 | tee %sdatalog.txt", ip, directorio_principal.c_str());
+  //sprintf(cmd,"snmpget -v 2c -c solarlex %s  1.3.6.1.2.1.118.1.1.101.11 | tee %sdatalog.txt", ip, directorio_principal.c_str());
   //sprintf(cmd,"snmpget -v 2c -c public %s  iso.3.6.1.2.1.1.1.0 ", ip, directorio_principal);
 
   system(cmd);
@@ -148,11 +147,10 @@ int recibir_desde_arduino(string ip_temp, int i){
   fclose (archivo_leer); // cierra el archivo
   string cad = cadena4;
 
+
   if(cad != "null"){
-	  //cout << cadena4 << endl;
 	  mensaje[i] = cadena4;
 	  estado[i] = "0";
-
   }else{
 	  cout << "Sin Datos (snmpget ...)" << endl;
 	  mensaje[i] = "301";
@@ -215,7 +213,14 @@ string obtener_campo_equipo(char *nombre_equipo, string nombre_campo_tabla){
     return categoria;
 }
 
-void guardar_datos(Equipos equipo){
+void escribir_log(string archivo, string contenido  ){
+  ofstream myfile;
+  myfile.open(archivo.c_str(), std::ofstream::app);
+  myfile << contenido.c_str() << "\n";
+  myfile.close();
+}
+
+void guardar_datos(){
     //************************************
     //GUARDAR HORA LINUX
     time_t hora = time(NULL);
@@ -244,10 +249,9 @@ void guardar_datos(Equipos equipo){
     strcpy(idequipo2, idequipo);
 	  char *nombre_equipo = strtok(idequipo2,"\"");
 
+    //TODO:REVISAR
     //char *nombre_equipo;
     //strcpy(nombre_equipo, equipo.getNombre().c_str());
-
-
 
 
 	  string cp_id        = obtener_campo_equipo(nombre_equipo, "cp_id");
@@ -277,10 +281,6 @@ void guardar_datos(Equipos equipo){
 
     strcat(insert_colection, ") VALUES (");
 
-    char * linea_split;
-    strcpy(linea_split, linea_t.c_str());
-    linea_split  = strtok (linea_split,",");
-
     //INSERT ID EQUIPO
     strcat(insert_colection, "'");
     strcat(insert_colection, cp_id.c_str() );
@@ -291,13 +291,18 @@ void guardar_datos(Equipos equipo){
     strcat(insert_colection, hactual );
     strcat(insert_colection, "',");
 
-    int cantidad_campos_arduino = 0;
+    char * linea_split;
+    strcpy(linea_split, linea_t.c_str());
+    linea_split  = strtok(linea_split,",");
+    //std::cout << "/* message */ ==== " << linea_t << std::endl;
+
+    int cantidad_campos_arduino = 1;
     while (linea_split != NULL){
       if(cantidad_campos_arduino>0){
         strcat(insert_colection, "'");
         strcat(insert_colection, linea_split );
         strcat(insert_colection, "'");
-        if(cantidad_campos_arduino<cantidad_campos)
+        if(cantidad_campos_arduino < cantidad_campos)
           strcat(insert_colection, ",");
       }
       linea_split = strtok (NULL, ",");
@@ -312,12 +317,45 @@ void guardar_datos(Equipos equipo){
 
     //std::cout << insert_colection << cantidad_campos  << "-" << cantidad_campos_arduino << std::endl;
 
+
     if(cantidad_campos_arduino == cantidad_campos ){
       //REALIZAR INSERT
       MYSQL *conn = conectar_mysql();
-  	  mysql_query(conn, insert_colection);
+      mysql_query(conn, insert_colection);
       mysql_close(conn);
       mensaje_consola("INSERT A TABLA 'tb_colection', realizado con exito !!!");
+
+
+
+      char fecha_hoy[30] = "";
+      char dia[3];
+      char mes[3];
+      char ano[5];
+      char hora_log[10];
+      struct tm * timeinfo;
+      time ( &hora );
+      timeinfo = localtime ( &hora );
+
+      timeinfo->tm_year = timeinfo->tm_year + 1900;
+
+      sprintf(dia, "%d",  timeinfo->tm_mday);
+      sprintf(mes, "%d",  timeinfo->tm_mon);
+      sprintf(ano, "%d",  timeinfo->tm_year);
+      sprintf(hora_log, "%d",  timeinfo->tm_hour);
+
+      strcat(fecha_hoy, dia);
+      strcat(fecha_hoy, "-");
+      strcat(fecha_hoy, mes);
+      strcat(fecha_hoy, "-");
+      strcat(fecha_hoy, ano);
+      strcat(fecha_hoy, " ");
+      strcat(fecha_hoy, hora_log);
+
+      char linea_log[200] = " ";
+      strcat(linea_log , fecha_hoy );
+      strcat(linea_log , " - ");
+      strcat(linea_log , linea_t.c_str());
+      escribir_log("lectura.log", linea_log);
 
     }else{
       std::cout << "INCONSISTENCIA ENTRE CAMPOS DE ARDUINO Y LOS CONFIGURADOS EN LA CATEGORIA" << std::endl;
@@ -401,14 +439,12 @@ int main() {
 
       for(int j = 0; j < equipos; j++){
         //COMENTARIO PARA PRUEBAS
-        codigo_desde_arduino = "slx01,1,2,3,4,5";
-        //recibir_desde_arduino(ips[j],j);
+        //codigo_desde_arduino = "slx01,1,2, 3,4,5,6,7,8";
+        recibir_desde_arduino(ips[j],j);
         //recibir_desde_arduino(equipos_array[j].getIp(), j);
-        if(codigo_desde_arduino != "null"){
+        if(codigo_desde_arduino != "null" && strlen(codigo_desde_arduino.c_str()) > 5){
           mensaje_consola("\nINICIO GUARDADO DE DATOS ... " + equipos_array[j].getNombre());
-          guardar_datos(equipos_array[j]);
-
-
+          guardar_datos();
           //TODO: AGREGAR LOG FORMATO (TIMESTAMP + STTRING DATALOG)
           //AMPLIAR LOS CAMPOS DEL CAMION
         }

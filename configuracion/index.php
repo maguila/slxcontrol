@@ -28,7 +28,6 @@
 
         include("../connection.php");
 
-
         $mensaje   = "";
         $permisos = substr(sprintf('%o', fileperms('../')), -4);
 
