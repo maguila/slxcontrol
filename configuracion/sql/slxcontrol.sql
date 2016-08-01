@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 29-07-2016 a las 10:46:35
+-- Tiempo de generación: 01-08-2016 a las 17:55:41
 -- Versión del servidor: 5.5.49-0+deb8u1
 -- Versión de PHP: 5.6.20-0+deb8u1
 
@@ -611,17 +611,17 @@ CREATE TABLE IF NOT EXISTS `tb_campos_lectura` (
   `tipo_campo` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
   `orden_lectura_arduino` int(5) DEFAULT NULL,
   `categorias_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `tb_campos_lectura`
 --
 
 INSERT INTO `tb_campos_lectura` (`id`, `campo`, `descripcion`, `tipo_campo`, `orden_lectura_arduino`, `categorias_id`) VALUES
-(1, 'cp_volt1', 'Nivel instantaneo', 'LITROS', 1, 9),
-(2, 'cp_volt2', 'Nivel filtrado (medio)', 'LITROS', 2, 9),
-(5, 'cp_amp1', 'Horometro acumulado', 'HORAS', 3, 9),
-(6, 'cp_amp2', 'Horometro sesiÃ³n', 'HORAS', 4, 9),
+(1, 'cp_campo1', 'Nombre Equipo', 'DESCRIPTIVO', 1, 9),
+(2, 'cp_campo2', 'ID Registro', 'LITROS', 2, 9),
+(5, 'cp_campo3', 'Nivel Guardado', 'HORAS', 3, 9),
+(6, 'cp_campo4', 'Nivel Filtrado', 'LITROS', 4, 9),
 (20, 'cp_volt1', '', 'VOLTAJE', 3, 1),
 (21, 'cp_volt2', '', 'VOLTAJE', 5, 1),
 (22, 'cp_volt3', '', 'VOLTAJE', 7, 1),
@@ -636,7 +636,11 @@ INSERT INTO `tb_campos_lectura` (`id`, `campo`, `descripcion`, `tipo_campo`, `or
 (38, 'cp_volt2', '', 'VOLTAJE', 5, 2),
 (39, 'cp_amp3', '', 'AMPERAJE', 6, 2),
 (40, 'cp_volt3', '', 'VOLTAJE', 7, 2),
-(41, 'cp_dig1', 'status horometro', 'DIGITAL', 5, 9);
+(41, 'cp_campo5', 'Nivel Instantaneo', 'DIGITAL', 5, 9),
+(42, 'cp_campo6', 'Voltaje Carga', 'VOLTAJE', 6, 9),
+(43, 'cp_campo7', 'Hora Acumulada', 'HORAS', 7, 9),
+(44, 'cp_campo8', 'Hora Elapsed', 'HORAS', 8, 9),
+(45, 'cp_campo9', 'status (1 o 0)', 'DESCRIPTIVO', 9, 9);
 
 -- --------------------------------------------------------
 
@@ -696,20 +700,20 @@ CREATE TABLE IF NOT EXISTS `tb_colection` (
 `cp_id` int(11) NOT NULL,
   `cp_oid` bigint(255) NOT NULL,
   `cp_id_perfil_cont` int(11) NOT NULL,
-  `cp_volt1` double DEFAULT NULL,
-  `cp_volt2` double DEFAULT NULL,
-  `cp_volt3` double DEFAULT NULL,
-  `cp_amp1` double DEFAULT NULL,
-  `cp_amp2` double DEFAULT NULL,
-  `cp_amp3` double DEFAULT NULL,
-  `cp_temp` int(11) DEFAULT NULL,
-  `cp_dig1` int(11) DEFAULT NULL,
-  `cp_dig2` int(11) DEFAULT NULL,
-  `cp_dig3` int(11) DEFAULT NULL,
-  `cp_dig4` int(11) DEFAULT NULL,
-  `cp_gps_x` double DEFAULT NULL,
-  `cp_gps_y` double DEFAULT NULL,
-  `cp_gps_z` double DEFAULT NULL
+  `cp_campo1` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `cp_campo2` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `cp_campo3` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `cp_campo4` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `cp_campo5` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `cp_campo6` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `cp_campo7` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `cp_campo8` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `cp_campo9` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `cp_campo10` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `cp_campo11` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `cp_campo12` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `cp_campo13` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `cp_campo14` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
@@ -833,17 +837,15 @@ CREATE TABLE IF NOT EXISTS `tb_perfil_cont_cfg` (
   `cp_oid` bigint(255) NOT NULL,
   `cp_modelo_id` int(11) NOT NULL,
   `id_mina` varchar(30) COLLATE utf8_spanish_ci DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `tb_perfil_cont_cfg`
 --
 
 INSERT INTO `tb_perfil_cont_cfg` (`cp_id`, `cp_cat_id`, `cp_nombre`, `cp_ip`, `cp_oid`, `cp_modelo_id`, `id_mina`) VALUES
-(1, 9, 'slx01', '192.168.24.13', 1440789600, 1, '769'),
-(2, 9, 'slx02', '192.168.24.12', 1440870120, 1, '770'),
-(3, 1, 'slx03', '192.168.1.175', 0, 1, '771'),
-(5, 6, 'slx666', '666.666.666', 0, 1, '666');
+(1, 9, 'slx01', '192.168.1.173', 1440789600, 1, '769'),
+(2, 9, 'slx02', '192.168.1.167', 1440870120, 1, '770');
 
 -- --------------------------------------------------------
 
@@ -1002,7 +1004,7 @@ MODIFY `cp_id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT de la tabla `tb_campos_lectura`
 --
 ALTER TABLE `tb_campos_lectura`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=42;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=46;
 --
 -- AUTO_INCREMENT de la tabla `tb_categorias_cfg`
 --
@@ -1047,7 +1049,7 @@ MODIFY `cp_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 -- AUTO_INCREMENT de la tabla `tb_perfil_cont_cfg`
 --
 ALTER TABLE `tb_perfil_cont_cfg`
-MODIFY `cp_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+MODIFY `cp_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `tb_registro_usu`
 --
