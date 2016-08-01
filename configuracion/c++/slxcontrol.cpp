@@ -44,7 +44,6 @@ void Equipos::set_values(string ip1, string nombre1, string categoria1){
 string codigo_desde_arduino;
 string ips[1000];
 Equipos equipos_array[1000];
-string direcciones_ip[1000];
 string ide;
 string datos[1000];
 string mensaje[1000];
@@ -97,24 +96,26 @@ void leer_direcciones_ip(){
   mysql_query(conn,consulta);
   res = mysql_use_result(conn);
 
-
   int index = 0;
   equipos   = 0;
+
+  //delete &equipos_array[1000];
+
   while( (row = mysql_fetch_row(res)) ){
-    std::cout << "IP: " << row[0] << " Nombre: " << row[1] << std::endl;
+    std::cout << "\nIP: " << row[0] << " NOMBRE: " << row[1] << " -- " << index << std::endl;
     Equipos equipo;
     equipo.set_values(row[0], row[1], row[2]); //Inicializa el objeto equipo
     ips[index] = row[0]; //SET LA IP PARA QUE SE HAGA EL snmpget
+
+    std::cout << "/* message */ " << index << std::endl;
     equipos_array[index] = equipo; //Agregar al arreglo global de objetos equipos
     equipos++;
     index++;
   }
 
   //std::cout << "HOLAAAA = " << equipos_array[0].getNombre() << std::endl;
-
   mysql_free_result(res);
   mysql_close(conn);
-
   mensaje_consola("\n***************************** EQUIPOS REGISTRADOS PARA LECTURAS ....");
 }
 
@@ -214,8 +215,7 @@ string obtener_campo_equipo(char *nombre_equipo, string nombre_campo_tabla){
     return categoria;
 }
 
-void guardar_datos(){
-
+void guardar_datos(Equipos equipo){
     //************************************
     //GUARDAR HORA LINUX
     time_t hora = time(NULL);
@@ -243,6 +243,12 @@ void guardar_datos(){
     char *idequipo = strtok(linea,",");
     strcpy(idequipo2, idequipo);
 	  char *nombre_equipo = strtok(idequipo2,"\"");
+
+    //char *nombre_equipo;
+    //strcpy(nombre_equipo, equipo.getNombre().c_str());
+
+
+
 
 	  string cp_id        = obtener_campo_equipo(nombre_equipo, "cp_id");
     string categoria_id = obtener_campo_equipo(nombre_equipo, "cp_cat_id");
@@ -395,11 +401,16 @@ int main() {
 
       for(int j = 0; j < equipos; j++){
         //COMENTARIO PARA PRUEBAS
-        //codigo_desde_arduino = "slx01,1,2,3,4,5";
-        recibir_desde_arduino(ips[j],j);
+        codigo_desde_arduino = "slx01,1,2,3,4,5";
+        //recibir_desde_arduino(ips[j],j);
+        //recibir_desde_arduino(equipos_array[j].getIp(), j);
         if(codigo_desde_arduino != "null"){
           mensaje_consola("\nINICIO GUARDADO DE DATOS ... " + equipos_array[j].getNombre());
-          guardar_datos();
+          guardar_datos(equipos_array[j]);
+
+
+          //TODO: AGREGAR LOG FORMATO (TIMESTAMP + STTRING DATALOG)
+          //AMPLIAR LOS CAMPOS DEL CAMION
         }
       }
 
