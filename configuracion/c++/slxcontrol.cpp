@@ -6,9 +6,8 @@
 // Version       : 1.4
 // Ultimos cambios: leer directorio y datos de conexion desde un xml. para ser administrados desde la web de configuracion.
 // Observaciones :
-//                1.- implementar un log despues de guardar en la base de datos (una linea sin retoques), ver si se puede meter la hora
-//                2.- LEER LOS PRIMERO CAMPOS DE LA LECTURA DE ARDUINO, NO VALIDAR CONSISTENCIA DE COLUMNAS.
-//                3.- Probar con varios equipos
+//                 1.- actualizar el campo cp_horometro_historico cuando la lectura del campo cp_campo4 sea 0
+//                 y realizar la suma (cp_horometro_historico = cp_horometro_historico + ultimo cp_campo4 de la lectura)
 //============================================================================
 
 #include </usr/include/mysql/mysql.h>
@@ -115,13 +114,16 @@ void leer_direcciones_ip(){
   //std::cout << "HOLAAAA = " << equipos_array[0].getNombre() << std::endl;
   mysql_free_result(res);
   mysql_close(conn);
-  mensaje_consola("\n***************************** EQUIPOS REGISTRADOS PARA LECTURAS ....");
+
+  mensaje_consola("\n**********************************************************************************************************");
+  mensaje_consola("***************************** EQUIPOS REGISTRADOS PARA LECTURAS ******************************************");
+  mensaje_consola("**********************************************************************************************************");
 }
 
 
 
 int recibir_desde_arduino(string ip_temp, int i){
-  mensaje_consola("Leyendo Controlador : " + ip_temp);
+  //mensaje_consola("Leyendo Controlador : " + ip_temp);
   char cmd[512];
   char cadena[150];
   char cadena2[150];
@@ -138,7 +140,7 @@ int recibir_desde_arduino(string ip_temp, int i){
   //DESCOMENTAR AL PROBAR EL VALOR CORRECTO ES 1.3.6.1.2.1.118.1.1.101.1
   sprintf(cmd,"snmpget -v 2c -c solarlex %s  1.3.6.1.2.1.118.1.1.101.1 | tee %sdatalog.txt", ip, directorio_principal.c_str());
   //sprintf(cmd,"snmpget -v 2c -c solarlex %s  1.3.6.1.2.1.118.1.1.101.11 | tee %sdatalog.txt", ip, directorio_principal.c_str());
-  //sprintf(cmd,"snmpget -v 2c -c public %s  iso.3.6.1.2.1.1.1.0 ", ip, directorio_principal);
+  //sprintf(cmd,"snmpget -v 2c -c solarlex %s  iso.3.6.1.2.1.1.1.118 ", ip, directorio_principal.c_str());
 
   system(cmd);
   sprintf(ruta_completa,"%sdatalog.txt", directorio_principal.c_str());
@@ -213,11 +215,46 @@ string obtener_campo_equipo(char *nombre_equipo, string nombre_campo_tabla){
     return categoria;
 }
 
-void escribir_log(string archivo, string contenido  ){
+void escribir_log(string archivo, time_t hora  ){
+
+  char fecha_hoy[30] = "";
+  char dia[3];
+  char mes[3];
+  char ano[5];
+  char hora_log[10];
+  struct tm * timeinfo;
+  time ( &hora );
+  timeinfo = localtime ( &hora );
+
+  timeinfo->tm_year = timeinfo->tm_year + 1900;
+
+  sprintf(dia, "%d",  timeinfo->tm_mday);
+  sprintf(mes, "%d",  timeinfo->tm_mon);
+  sprintf(ano, "%d",  timeinfo->tm_year);
+  sprintf(hora_log, "%d",  timeinfo->tm_hour);
+
+  strcat(fecha_hoy, dia);
+  strcat(fecha_hoy, "-");
+  strcat(fecha_hoy, mes);
+  strcat(fecha_hoy, "-");
+  strcat(fecha_hoy, ano);
+  strcat(fecha_hoy, " ");
+  strcat(fecha_hoy, hora_log);
+
+  char linea_log[200] = " ";
+  strcat(linea_log , fecha_hoy );
+  strcat(linea_log , " - ");
+  strcat(linea_log , codigo_desde_arduino.c_str());
+
+
   ofstream myfile;
   myfile.open(archivo.c_str(), std::ofstream::app);
-  myfile << contenido.c_str() << "\n";
+  myfile << codigo_desde_arduino.c_str() << "\n";
   myfile.close();
+}
+
+void actualizar_horometro_fuel(){
+
 }
 
 void guardar_datos(){
@@ -325,40 +362,10 @@ void guardar_datos(){
       mysql_close(conn);
       mensaje_consola("INSERT A TABLA 'tb_colection', realizado con exito !!!");
 
-
-
-      char fecha_hoy[30] = "";
-      char dia[3];
-      char mes[3];
-      char ano[5];
-      char hora_log[10];
-      struct tm * timeinfo;
-      time ( &hora );
-      timeinfo = localtime ( &hora );
-
-      timeinfo->tm_year = timeinfo->tm_year + 1900;
-
-      sprintf(dia, "%d",  timeinfo->tm_mday);
-      sprintf(mes, "%d",  timeinfo->tm_mon);
-      sprintf(ano, "%d",  timeinfo->tm_year);
-      sprintf(hora_log, "%d",  timeinfo->tm_hour);
-
-      strcat(fecha_hoy, dia);
-      strcat(fecha_hoy, "-");
-      strcat(fecha_hoy, mes);
-      strcat(fecha_hoy, "-");
-      strcat(fecha_hoy, ano);
-      strcat(fecha_hoy, " ");
-      strcat(fecha_hoy, hora_log);
-
-      char linea_log[200] = " ";
-      strcat(linea_log , fecha_hoy );
-      strcat(linea_log , " - ");
-      strcat(linea_log , linea_t.c_str());
-      escribir_log("lectura.log", linea_log);
+      escribir_log("lectura.txt", hora);
 
     }else{
-      std::cout << "INCONSISTENCIA ENTRE CAMPOS DE ARDUINO Y LOS CONFIGURADOS EN LA CATEGORIA" << std::endl;
+      std::cout << "INCONSISTENCIA CON CAMPOS CONFIGURADOS EN LA CATEGORIA (" <<  cantidad_campos << " campos registrados en BD)" << std::endl;
     }
 
 }
@@ -443,10 +450,8 @@ int main() {
         recibir_desde_arduino(ips[j],j);
         //recibir_desde_arduino(equipos_array[j].getIp(), j);
         if(codigo_desde_arduino != "null" && strlen(codigo_desde_arduino.c_str()) > 5){
-          mensaje_consola("\nINICIO GUARDADO DE DATOS ... " + equipos_array[j].getNombre());
+          mensaje_consola("\nINICIO GUARDADO DE DATOS ... " + equipos_array[j].getNombre() + " - " + equipos_array[j].getIp());
           guardar_datos();
-          //TODO: AGREGAR LOG FORMATO (TIMESTAMP + STTRING DATALOG)
-          //AMPLIAR LOS CAMPOS DEL CAMION
         }
       }
 
