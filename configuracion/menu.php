@@ -20,7 +20,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.php">Configuraciones</a>
+      <a class="navbar-brand" href="index.php">SLXcontrol</a>
     </div>
     <div id="navbar" class="collapse navbar-collapse">
 
@@ -58,13 +58,13 @@
             }
         ?>
 
-        <li class="<?php  echo $class_index; ?>" ><a href="index.php">Conexión BD</a></li>
-        <li class="<?php  echo $class_procesos; ?>" ><a href="procesos.php">Procesos</a></li>
-        <li class="<?php  echo $class_categorias; ?>" ><a href="categorias.php">Categorias</a></li>
-        <li class="<?php  echo $class_host; ?>" ><a href="equipos.php">Equipos</a></li>
-        <li class="<?php  echo $class_campos; ?>" ><a href="campos.php">Campos de Lectura</a></li>
-        <li class="<?php  echo $class_alertas; ?>" ><a href="alertas.php">Alertas</a></li>
-        <li class="<?php  echo $class_lectura; ?>" ><a href="lecturas.php">Ultimas Lecturas</a></li>
+        <li class="<?php  echo $class_index; ?>" ><a href="index.php"> <span class="glyphicon glyphicon-wrench"></span>  Conexión BD</a></li>
+        <li class="<?php  echo $class_procesos; ?>" ><a href="procesos.php"> <span class="glyphicon glyphicon-copy"></span> Procesos</a></li>
+        <li class="<?php  echo $class_categorias; ?>" ><a href="categorias.php"> <span class="glyphicon glyphicon-indent-right"></span> Categorias</a></li>
+        <li class="<?php  echo $class_campos; ?>" ><a href="campos.php"> <span class="glyphicon glyphicon-tasks"></span> Campos de Lectura</a></li>
+        <li class="<?php  echo $class_host; ?>"   ><a href="equipos.php"> <span class="glyphicon glyphicon-phone"></span> Equipos</a></li>
+        <li class="<?php  echo $class_alertas; ?>" ><a href="alertas.php"> <span class="glyphicon glyphicon-alert"></span> Alertas</a></li>
+        <li class="<?php  echo $class_lectura; ?>" ><a href="lecturas.php"> <span class="glyphicon glyphicon-list-alt"></span> Ultimas Lecturas</a></li>
       </ul>
     </div><!--/.nav-collapse -->
   </div>

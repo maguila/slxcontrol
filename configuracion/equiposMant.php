@@ -29,16 +29,28 @@
     include("../php/connection.php");
     $conn = crearConexion();
 
-    $disable = $_POST['accion'] == 'eliminar' ? 'disabled' : '';
 
+    $disable = $_POST['accion'] == 'eliminar' ? 'disabled' : '';
     $ok = false;
     if($_POST['accionBoton'] == 'crear'){
-      $sql = "insert into tb_perfil_cont_cfg (cp_nombre, cp_ip, cp_cat_id, cp_modelo_id ) values ('".$_POST['cp_nombre']."', '".$_POST['cp_ip']."' , '".$_POST['cp_cat_id']."' , '1' ) ";
+      $values .= "'".$_POST['cp_nombre']."' ,";
+      $values .= "'".$_POST['cp_ip']."' ,";
+      $values .= "'".$_POST['cp_cat_id']."' ,";
+      $values .= "'".$_POST['id_mina']."' ,";
+      $values .= "'".$_POST['cp_horometro_historico']."' ,";
+      $values .= "'1' ";
+
+      $sql = "insert into tb_perfil_cont_cfg (cp_nombre, cp_ip, cp_cat_id, id_mina, cp_horometro_historico ,cp_modelo_id ) values (".$values.") ";
       $conn->query($sql);
       $ok = true;
 
     }else if($_POST['accionBoton'] == 'editar'){
-      $sql = "update tb_perfil_cont_cfg set cp_nombre = '".$_POST['cp_nombre']."' , cp_ip = '".$_POST['cp_ip']."' , cp_cat_id = '".$_POST['cp_cat_id']."' where cp_id = '".$_POST['cp_id']."' ";
+      $sets .= "cp_nombre = '".$_POST['cp_nombre']."' ,";
+      $sets .= "cp_cat_id = '".$_POST['cp_cat_id']."' ,";
+      $sets .= "id_mina = '".$_POST['id_mina']."' ,";
+      $sets .= "cp_horometro_historico = '".$_POST['cp_horometro_historico']."'";
+
+      $sql = "update tb_perfil_cont_cfg set ".$sets."  where cp_id = '".$_POST['cp_id']."' ";
       $conn->query($sql);
       $ok = true;
 
@@ -48,9 +60,9 @@
       $ok = true;
     }
 
-
     if($ok)
       header( 'Location: equipos.php' );
+
   ?>
 
   <div class="container">
@@ -89,6 +101,15 @@
             <input type="text" name="cp_ip" value="<?php echo $_POST['cp_ip']; ?>" class="form-control" <?php echo $disable; ?> ></input>
           </div>
 
+          <div class="form-group">
+            <label>ID Mina</label>
+            <input type="text" name="id_mina" value="<?php echo $_POST['id_mina']; ?>" class="form-control" <?php echo $disable; ?> ></input>
+          </div>
+
+          <div class="form-group">
+            <label>Horómetro Acumulado</label>
+            <input type="text" name="cp_horometro_historico" value="<?php echo $_POST['cp_horometro_historico']; ?>" class="form-control" <?php echo $disable; ?> ></input>
+          </div>
 
           <div class="form-group">
               <label>Categoria (Seleccione al modulo que pertenece este equipo)</label>
@@ -98,13 +119,12 @@
                   $result = $conn->query($sql);
 
                   echo "<option>Seleccione Categoria</option>";
-                  while($row = $result->fetch_assoc()){
+                  foreach($result as $row){
                     if( $row['cp_id'] == $_POST['cp_cat_id'])
                       echo "<option selected value='".$row['cp_id']."'>".$row['cp_nombre']."</option>";
                     else
                       echo "<option value='".$row['cp_id']."'>".$row['cp_nombre']."</option>";
                   }
-
 
                  ?>
 

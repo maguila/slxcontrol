@@ -8,6 +8,6 @@
   </mysql>
   <archivos>
     <pathPrincipal>/var/www/html/slxcontrol/configuracion/c++/</pathPrincipal>
-    <delay>3</delay>
+    <delay>10</delay>
   </archivos>
 </conf>

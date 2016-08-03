@@ -72,8 +72,13 @@
               $lista_campos_html = $lista_campos_html . " " . $row_count['campo'] . "<br> ";
             }
 
+            $class_btn = "btn btn-default btn-sm";
+            if($cantidad_campos > 0){
+              $class_btn = "btn btn-primary btn-sm";
+            }
 
             $cantidad_campos  = $cantidad_campos > 0 ? "<b>".$cantidad_campos."</b>" : $cantidad_campos;
+
 
 
             $clase_tr = $_GET['cat'] == $row['cp_id'] ? 'info' : '' ;
@@ -83,7 +88,7 @@
                  "<input type='hidden' name='cp_id' value='".$row['cp_id'] ."'></input>" .
                  "<td> <input type='hidden' name='cp_nombre'       value='".$row['cp_nombre'] ."'></input> ".$row['cp_nombre']. "</td>" .
                  "<td> <input type='hidden' name='cp_descripcion' value='".$row['cp_descripcion'] ."'></input> ".$row['cp_descripcion']. "</td>" .
-                 "<td align=center> <a style='cursor:pointer;' href='campos.php?cat=".$row['cp_id']."' data-html='true' data-toggle='popover' title='Campos Definidos' data-content='".$lista_campos_html."'> " . $cantidad_campos . "</a> </td>" .
+                 "<td align=center> <a class='".$class_btn."' style='cursor:pointer;' href='campos.php?cat=".$row['cp_id']."' data-html='true' data-toggle='popover' title='Campos Definidos' data-content='".$lista_campos_html."'> " . $cantidad_campos . "</a> </td>" .
                  "<td>" .
                  "   <button class='btn btn-success btn-sm' value='editar' name='accion'> " .
                  "      <span class='glyphicon glyphicon-edit'></span>" .

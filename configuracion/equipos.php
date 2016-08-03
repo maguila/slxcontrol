@@ -44,6 +44,8 @@
           <th class="active">ID</th>
           <th class="active">Nombre</th>
           <th class="active">IP</th>
+          <th class="active">ID Mina</th>
+          <th class="active">Horómetro Hist.</th>
           <th class="active">Categoria</th>
           <th class="active">Acciones</th>
         </tr>
@@ -66,7 +68,9 @@
                  "<td> <input type='hidden' name='cp_id'       value='".$row['cp_id'] ."'></input> ".$row['cp_id']. "</td>" .
                  "<td> <input type='hidden' name='cp_nombre' value='".$row['cp_nombre']."'></input> ".$row['cp_nombre']. "</td>" .
                  "<td> <input type='hidden' name='cp_ip'  value='".$row['cp_ip'] ."'></input> ".$row['cp_ip']. "</td>" .
-                 "<td> <input type='hidden' name='cp_cat_id'  value='".$row['cp_cat_id'] ."'></input>  <a href='categorias.php?cat=".$row['cp_cat_id']."'>".$nombre_categoria."</a> </td>" .
+                 "<td> <input type='hidden' name='id_mina'  value='".$row['id_mina'] ."'></input> ".$row['id_mina']. "</td>" .
+                 "<td> <input type='hidden' name='cp_horometro_historico'  value='".$row['cp_horometro_historico'] ."'></input> ".$row['cp_horometro_historico']. "</td>" .
+                 "<td> <input type='hidden' name='cp_cat_id'  value='".$row['cp_cat_id'] ."'></input>  <a class='btn btn-primary btn-sm' href='categorias.php?cat=".$row['cp_cat_id']."'>".$nombre_categoria."</a> </td>" .
                  "<td>" .
                  "   <button class='btn btn-success btn-sm' value='editar' name='accion'> " .
                  "      <span class='glyphicon glyphicon-edit'></span>" .
