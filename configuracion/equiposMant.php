@@ -46,6 +46,7 @@
 
     }else if($_POST['accionBoton'] == 'editar'){
       $sets .= "cp_nombre = '".$_POST['cp_nombre']."' ,";
+      $sets .= "cp_ip = '".$_POST['cp_ip']."' ,";
       $sets .= "cp_cat_id = '".$_POST['cp_cat_id']."' ,";
       $sets .= "id_mina = '".$_POST['id_mina']."' ,";
       $sets .= "cp_horometro_historico = '".$_POST['cp_horometro_historico']."'";

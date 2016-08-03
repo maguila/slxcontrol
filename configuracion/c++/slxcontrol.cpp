@@ -47,8 +47,6 @@ void Equipos::set_values(string id1,string ip1, string nombre1, string categoria
 string codigo_desde_arduino;
 Equipos equipos_array[1000];
 string datos[1000];
-string mensaje[1000];
-string estado[1000];
 string nombre[1000];
 string dat;
 
@@ -80,6 +78,29 @@ MYSQL * conectar_mysql(){
       return NULL;
     }
     return conn;
+}
+
+/*********************************************************
+* Funcion que obtiene el path del archivo configuracion.xml
+* el cual contiene datos de conexion y path de archivos
+**********************************************************/
+string get_resultado_comando_linux(string comando){
+  char buffer[128];
+  std::string result = "";
+  FILE * pipe = popen( comando.c_str(), "r" );
+
+  try {
+      while (!feof(pipe)) {
+          if (fgets(buffer, 128, pipe) != NULL)
+              result += buffer;
+      }
+  } catch (...) {
+      pclose(pipe);
+      throw;
+  }
+
+  pclose(pipe);
+  return result;
 }
 
 
@@ -117,7 +138,7 @@ void leer_direcciones_ip(){
 
 
 int recibir_desde_arduino(string ip_temp, int i){
-  //mensaje_consola("Leyendo Controlador : " + ip_temp);
+  mensaje_consola("Leyendo Controlador : " + ip_temp);
   char cmd[600];
   char cadena[150];
   char cadena2[150];
@@ -132,22 +153,17 @@ int recibir_desde_arduino(string ip_temp, int i){
 
   //DESCOMENTAR AL PROBAR EL VALOR CORRECTO ES 1.3.6.1.2.1.118.1.1.101.1
   sprintf(cmd,"snmpget -v 2c -c solarlex %s  1.3.6.1.2.1.118.1.1.101.1 | tee %sdatalog.txt", ip, directorio_principal.c_str());
+  string salida_snmp = get_resultado_comando_linux(string(cmd));
 
-  system(cmd);
   sprintf(ruta_completa,"%sdatalog.txt", directorio_principal.c_str());
   archivo_leer = fopen (ruta_completa, "r");
   fscanf(archivo_leer, "%s %s %s %s", cadena, cadena2, cadena3, cadena4);
   fclose (archivo_leer); // cierra el archivo
+
   string cad = cadena4;
 
-
-  if(cad != "null"){
-	  mensaje[i] = cadena4;
-	  estado[i] = "0";
-  }else{
-	  cout << "Sin Datos (snmpget ...)" << endl;
-	  mensaje[i] = "301";
-	  estado[i] = "1";
+  if(cad == "null"){
+    cout << "Sin Datos (snmpget ...)" << endl;
   }
 
   codigo_desde_arduino = cad;
@@ -227,20 +243,52 @@ void escribir_log(string archivo, time_t hora  ){
 void actualizar_horometro_fuel(string id_equipo){
 
   string horometro_actual;
+  string horometro_ultimo_leido;
+
   char *linea_aux = new char[200];
   strcpy(linea_aux, codigo_desde_arduino.c_str());
 
-  //SI EL CAMPO ES EL HOROMETRO DE LA SESION Y SU VALOR ES CERO SIGNIFICA
-  //QUE SE DEBE ACTUALIZAR EL CAMPO HOROMETRO_HISTORICO DE LA TABLA DE EQUIPOS
+
   int campo_cont = 1;
   strtok(linea_aux, ",");
   while(linea_aux != NULL){
 
-    //if(campo_cont == 7 && strcmp(linea_aux, "0")==0 ){
-    if(campo_cont == 7){
+    //SI EL CAMPO ES EL HOROMETRO DE LA SESION Y SU VALOR ES CERO SIGNIFICA
+    //QUE SE DEBE ACTUALIZAR EL CAMPO HOROMETRO_HISTORICO DE LA TABLA DE EQUIPOS
+    if(campo_cont == 7 && strcmp(linea_aux, "0")==0 ){
+
       horometro_actual = linea_aux;
-      //std::cout << "/* message CAMPO ALTURA LIQUIDO !! =" << linea_aux << std::endl;
+
+      //TRAER PENULTIMO LECTURA DEL EQUIPO PARA ACTUALIZAR EL HOROMETRO
+      //ES DECIR LA LECTURA QUE SEA DISTINTA DE 0
+      MYSQL *conn = conectar_mysql();
+
+      char consulta_collection[1024];
+      sprintf(consulta_collection, "SELECT cp_campo7 FROM tb_colection where cp_id_perfil_cont= '%s' and cp_oid = (select max(cp_oid) from tb_colection where cp_id_perfil_cont= '%s' and cp_campo7 not in ('0') ) ", id_equipo.c_str(), id_equipo.c_str() );
+      mysql_query(conn, consulta_collection);
+      MYSQL_RES * result = mysql_store_result(conn);
+
+      while(MYSQL_ROW row = mysql_fetch_row(result)){
+        horometro_ultimo_leido = row[0];
+      }
+
+      /*
+      std::cout << "message == " << consulta_collection << std::endl;
+      std::cout << "message ==" << horometro_ultimo_leido << std::endl;
+      */
+
+      mysql_close(conn);
+
+
+      //ACTUALIZAR HOROMETRO HISTORICO CON LA ULTIMA LECTURA DISTINTA DE CERO
+      char consulta[1024];
+      conn = conectar_mysql();
+      sprintf(consulta,"update tb_perfil_cont_cfg set cp_horometro_historico = ( cp_horometro_historico + '%s' ) WHERE cp_id  = '%s' ", horometro_actual.c_str() , id_equipo.c_str());
+      mysql_query(conn, consulta);
+      mysql_close(conn);
     }
+
+
     linea_aux = strtok(NULL, ",");
     campo_cont++;
   }
@@ -249,12 +297,6 @@ void actualizar_horometro_fuel(string id_equipo){
   //std::cout << "/* message */ = " << id_equipo << std::endl;
 
 
-  //ACTUALIZAR HOROMETRO HISTORICO CON LA
-  char consulta[1024];
-  sprintf(consulta,"update tb_perfil_cont_cfg set cp_horometro_historico = ( cp_horometro_historico + '%s' ) WHERE cp_id  = '%s' ", horometro_actual.c_str() , id_equipo.c_str());
-  MYSQL *conn = conectar_mysql();
-  mysql_query(conn, consulta);
-  mysql_close(conn);
 
 }
 
@@ -369,28 +411,7 @@ void guardar_datos(int index){
 }
 
 
-/*********************************************************
-* Funcion que obtiene el path del archivo configuracion.xml
-* el cual contiene datos de conexion y path de archivos
-**********************************************************/
-string get_resultado_comando_linux(string comando){
-  char buffer[128];
-  std::string result = "";
-  FILE * pipe = popen( comando.c_str(), "r" );
 
-  try {
-      while (!feof(pipe)) {
-          if (fgets(buffer, 128, pipe) != NULL)
-              result += buffer;
-      }
-  } catch (...) {
-      pclose(pipe);
-      throw;
-  }
-
-  pclose(pipe);
-  return result;
-}
 
 
 string obtener_valor_xml_conf(string path_xml, string atributo_xml){
@@ -437,7 +458,7 @@ int main() {
     int x=0;
     while(x==0){
 
-      string path_xml = get_resultado_comando_linux("find /var/www/html/ -name configuracion.xml");
+      string path_xml = get_resultado_comando_linux("find /var/www/html/slxcontrol -name configuracion.xml");
       set_configuracion_xml(path_xml);
 
       leer_direcciones_ip();

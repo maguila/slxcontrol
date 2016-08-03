@@ -52,7 +52,7 @@
             }
         }
 
-        $path_xml = trim(shell_exec("find /var/www/html/ -name configuracion.xml"));
+        $path_xml = trim(shell_exec("find /var/www/html/slxcontrol -name configuracion.xml"));
         $xml      = simplexml_load_file($path_xml);
 
         $servidor  = $xml->mysql->host;
@@ -64,7 +64,7 @@
 
 
         function guardar_xml(){
-          $path_xml = trim(shell_exec("find /var/www/html/ -name configuracion.xml"));
+          $path_xml = trim(shell_exec("find /var/www/html/slxcontrol -name configuracion.xml"));
           $xml      = simplexml_load_file($path_xml);
 
           $xml->mysql->host       = trim($_POST['host']);
