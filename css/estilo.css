@@ -223,6 +223,7 @@ body{
 	height: 123px;
 	border-radius: 10px;
 	padding-top: 13px;
+	cursor: pointer;
 }
 .img-camion-l{
 	/*width: 175px;*/
