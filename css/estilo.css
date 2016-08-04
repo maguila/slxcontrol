@@ -233,7 +233,7 @@ body{
 }
 .num-cam-l{
 	color: white;
-	font-size: 25px;
+	font-size: 22px;
 }
 .div-num-cam-l{
 	margin-left: 42px;
@@ -244,6 +244,7 @@ body{
 .estado-camion-m{
 	margin-left: 0px !important;
 	margin-top: 60px;
+	cursor: pointer;
 }
 .espacio-ecam-m{
 	background-color: #332F2E;

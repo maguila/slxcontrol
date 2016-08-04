@@ -37,8 +37,8 @@
                 <img src="img/iconos-menu/camion-a.png" class="cliente-foto">
               </div>
               <div class="col-lg-9 rs2">
-                <div class="numero-cam-h"><span class="cam-h">0</span></div>
-                <div class="lgd-cam-h"><span class="cam-h-leg">Camiones con mas de 30% de combustible</span></div>
+                <div class="numero-cam-h"><span id="camiones-h" class="cam-h">0</span></div>
+                <div class="lgd-cam-h"><span class="cam-h-leg">Camiones con mas de 40% de combustible</span></div>
               </div>
             </div>
          </div>
@@ -48,37 +48,24 @@
           <div class="col-lg-6">
             <div class="leng-estado">
               <div class="numero-cam-l"><span class="cam-l">  <span id="camiones-low"></span> </span></div>
-              <div class="lgd-cam-l"><span class="cam-l-leg">Camiones con menos de 10% de combustible</span></div>
+              <div class="lgd-cam-l"><span class="cam-l-leg">Camiones con menos de 30% de combustible</span></div>
             </div>
 
-            <div id="camionesRojos"></div>
-            <!-- TODO: BORRAR CUANDO SE TERMINE
-            <div class="estado-camion-l">
-              <div class="col-lg-6 espacio-ecam-l">
-                <div class="col-lg-3"><img src="img/iconos-menu/bidon-b3.png" class="img-bidon-l"></div>
-                <div class="col-lg-9">
-                  <div class="div-num-cam-l"><span class="num-cam-l">768</span></div>
-                  <img src="img/iconos-menu/camion-c.png" class="img-camion-l">
-                </div>
-              </div>
-            </div>
 
-            -->
+            <div id="camionesRojos" class="row"></div>
+
+
           </div>
           <div class="col-lg-6">
             <div class="leng-estado">
-              <div class="numero-cam-m"><span class="cam-m">0</span></div>
-              <div class="lgd-cam-m"><span class="cam-m-leg">Camiones con el 10% y 30% de combustible</span></div>
+              <div class="numero-cam-m"><span id="camiones-med" class="cam-m">0</span></div>
+              <div class="lgd-cam-m"><span class="cam-m-leg">Camiones entre 30% y 40% de combustible</span></div>
             </div>
-            <div class="estado-camion-m">
-              <div class="col-lg-4 espacio-ecam-m">
-                <div class="col-lg-3"><img src="img/iconos-menu/bidon-a3.png" class="img-bidon-m"></div>
-                <div class="col-lg-9">
-                  <div class="div-num-cam-m"><span class="num-cam-m">768</span></div>
-                  <img src="img/iconos-menu/camion-b2.png" class="img-camion-m">
-                </div>
-              </div>
-            </div>
+
+
+            <div id="camionesAmarillos" class="row"></div>
+  
+
           </div>
         </div>
       </div>
@@ -109,6 +96,8 @@
 
       </footer>
 
+      <div id="aux_camiones" style="display: none;"></div>
+
 
     <script src="js/jquery-2.1.4.js"></script>
     <script src="js/bootstrap.js"></script>
@@ -134,29 +123,53 @@
 
        leer_camiones();
 
+       /*
        setInterval(function(){
          leer_camiones();
        }, 4000);
+       */
 
        function leer_camiones(){
          $.ajax({
            url: "php/leerEquipos.php",
-           method: "post",
+           data: {"categoria_id" : "9" },
+           method: "POST",
            success: function(response){
-             $("#camionesRojos").html(response);
+             $("#aux_camiones").html(response);
 
+             //CONTAR CAMIONES ROJOS
              var index = 0;
-             $("#camionesRojos .estado-camion-l").each(function(){
+             $("#aux_camiones .camion-rojo").each(function(){
+                $("#camionesRojos").append($(this).html());
                 index++;
              });
-
-
              $("#camiones-low").html(index);
 
+
+             //CONTAR CAMIONES AMARILLOS
+             index = 0;
+             $("#aux_camiones .camion-amarrillo").each(function(){
+                $("#camionesAmarillos").append($(this).html());
+                index++;
+             });
+             $("#camiones-med").html(index);
+
+
+             //CONTAR CAMIONES EN AZUL
+             index = 0;
+             $("#aux_camiones .camion-azul").each(function(){
+                index++;
+             });
+             $("#camiones-h").html(index);
+
+
              $(".camion").click(function(){
-               window.location="equipos.html?=id_equipo="+$(this).attr("id");
+               window.location="equipos.html?id_equipo="+$(this).attr("id");
              });
 
+           },
+           error: function(xhr, status){
+             alert("ocurrio un error");
            }
          });
        }
