@@ -137,6 +137,7 @@
 
              //CONTAR CAMIONES ROJOS
              var index = 0;
+             $("#camionesRojos").html("");
              $("#aux_camiones .camion-rojo").each(function(){
                 $("#camionesRojos").append($(this).html());
                 index++;
@@ -146,6 +147,7 @@
 
              //CONTAR CAMIONES AMARILLOS
              index = 0;
+             $("#camionesAmarillos").html("");
              $("#aux_camiones .camion-amarrillo").each(function(){
                 $("#camionesAmarillos").append($(this).html());
                 index++;
