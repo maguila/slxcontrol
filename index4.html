@@ -51,11 +51,8 @@
               <div class="lgd-cam-l"><span class="cam-l-leg">Camiones con menos de 10% de combustible</span></div>
             </div>
 
-
-            <div id="camionesRojos" class="row"></div>  
-
+            <div id="camionesRojos"></div>
             <!-- TODO: BORRAR CUANDO SE TERMINE
-
             <div class="estado-camion-l">
               <div class="col-lg-6 espacio-ecam-l">
                 <div class="col-lg-3"><img src="img/iconos-menu/bidon-b3.png" class="img-bidon-l"></div>
@@ -137,34 +134,23 @@
 
        leer_camiones();
 
-        /*
        setInterval(function(){
          leer_camiones();
        }, 4000);
-       */
 
        function leer_camiones(){
          $.ajax({
            url: "php/leerEquipos.php",
            method: "post",
            success: function(response){
+             $("#camionesRojos").html(response);
 
              var index = 0;
              $("#camionesRojos .estado-camion-l").each(function(){
-                 index++;
+              index++;
              });
 
              $("#camiones-low").html(index);
-
-
-             $("#camionesRojos").html(response);
-              
-             //Trae solo los camiones rojos, por ejemplo, para solo leer una sola vez
-	     //alert($(response).find(".camion-rojo").html());
-
-	     $(".espacio-ecam-l").click(function(){
-		window.location="equipos.html?id_equipo=" + $(this).attr("id");
-	     });
 
            }
          });
