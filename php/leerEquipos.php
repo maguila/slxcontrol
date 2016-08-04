@@ -25,7 +25,7 @@
 
         if($porcentaje < 20){
           $html_camion =
-                         "<div id='".$row1['cp_id_perfil_cont']."' class='col-md-6 espacio-ecam-l camion-rojo'> " .
+                         "<div id='".$row1['cp_id_perfil_cont']."' class='col-md-6 espacio-ecam-l camion camion-rojo'> " .
                          "    <div class='col-lg-3'><img src='img/iconos-menu/bidon-b3.png' class='img-bidon-l'></div> " .
                          "      <div class='col-lg-9'> " .
                          "        <div class='div-num-cam-l'><span class='num-cam-l'> ".$row['id_mina']." </span></div> " .

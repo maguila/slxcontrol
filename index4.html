@@ -147,10 +147,15 @@
 
              var index = 0;
              $("#camionesRojos .estado-camion-l").each(function(){
-              index++;
+                index++;
              });
 
+
              $("#camiones-low").html(index);
+
+             $(".camion").click(function(){
+               window.location="equipos.html?=id_equipo="+$(this).attr("id");
+             });
 
            }
          });
