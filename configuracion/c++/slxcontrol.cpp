@@ -10,7 +10,6 @@
 //                 y realizar la suma (cp_horometro_historico = cp_horometro_historico + ultimo cp_campo4 de la lectura)
 //                 slx2,,,,,2,13,10,1 validar
 //============================================================================
-
 #include </usr/include/mysql/mysql.h>
 #include <algorithm>
 #include <iostream>
@@ -29,8 +28,10 @@ class Equipos{
   string ip;
   string nombre;
   string categoria;
+
   public:
     void set_values(string, string, string, string);
+
     string getId(){ return id; }
     string getIp(){ return ip; }
     string getNombre(){ return nombre; }
@@ -44,11 +45,16 @@ void Equipos::set_values(string id1,string ip1, string nombre1, string categoria
   categoria = categoria1;
 }
 
-string codigo_desde_arduino;
+
+bool MODO_DEBUG = true;
+
 Equipos equipos_array[1000];
-string datos[1000];
-string nombre[1000];
-string dat;
+string campos_leidos_array[30];
+string horometros_anteriores[100];
+
+string codigo_desde_arduino;
+int equipos;
+
 
 string directorio_principal;
 string directorio_host_cfg;
@@ -58,9 +64,6 @@ string server;
 string user;
 string password;
 string database;
-bool MODO_DEBUG = true;
-
-int equipos;
 
 
 void mensaje_consola(string mensaje){
@@ -136,15 +139,33 @@ void leer_direcciones_ip(){
 }
 
 
+/***********************************
+  Funcion que actualiza el campo
+  cp_horometro_historico de la tabla de perfiles/equipos
+************************************/
+void actualizar_horometro_fuel(int index){
+  //ACTUALIZAR HOROMETRO HISTORICO CON LA ULTIMA LECTURA DISTINTA DE CERO
+  char consulta[1024];
+  MYSQL *conn = conectar_mysql();
+  sprintf(consulta,"update tb_perfil_cont_cfg set cp_horometro_historico = ( cp_horometro_historico + '%s' ) WHERE cp_id  = '%s' ",
+          horometros_anteriores[index].c_str() , equipos_array[index].getId().c_str());
 
-int recibir_desde_arduino(string ip_temp, int i){
+  mysql_query(conn, consulta);
+  mysql_close(conn);
+}
+
+
+/****************************************************
+* REALIZA EL SNMP y GUARDAR LOS CAMPOS EN UN ARREGLO
+* PARA FACILITAR FUTURAS LECTURAS
+****************************************************/
+void recibir_desde_arduino(string ip_temp, int index){
   mensaje_consola("Leyendo Controlador : " + ip_temp);
   char cmd[600];
   char cadena[150];
   char cadena2[150];
   char cadena3[150];
   char cadena4[150];
-  char *cadena5;
   FILE* archivo_leer;
   char ip[128];
   char ruta_completa[500];
@@ -160,14 +181,46 @@ int recibir_desde_arduino(string ip_temp, int i){
   fscanf(archivo_leer, "%s %s %s %s", cadena, cadena2, cadena3, cadena4);
   fclose (archivo_leer); // cierra el archivo
 
-  string cad = cadena4;
+  codigo_desde_arduino = cadena4;
+  //codigo_desde_arduino = "slx01,1,2,3,4,5,0,7"; //TODO: PRUEBAS
 
-  if(cad == "null"){
+  if(codigo_desde_arduino == "null"){
     cout << "Sin Datos (snmpget ...)" << endl;
+  }else{
+    char *linea_aux = new char[200];
+    strcpy(linea_aux, codigo_desde_arduino.c_str());
+    strtok(linea_aux, ",");
+    int campo_cont = 0;
+    while(linea_aux != NULL){
+      campos_leidos_array[campo_cont] = linea_aux;
+      linea_aux = strtok(NULL, ",");
+      campo_cont++;
+    }
   }
 
-  codigo_desde_arduino = cad;
-  return 0;
+
+  //SOLO PARA CATEGORIA CAMION-FUEL
+  if(equipos_array[index].getCategoria() == "9"){
+
+    /*
+    int random = rand() % 2 + 0;
+    ostringstream oss;
+    oss<< random;
+    campos_leidos_array[6] = oss.str();
+    std::cout << "RANDOM = " << random << std::endl;
+    */
+
+    if(strcmp(campos_leidos_array[6].c_str(), "0") == 0){
+      //std::cout << "/*ACTUALIZAR HOROMETRO ES CERO ACTUAL = " << campos_leidos_array[6] << " ANTERIOR = " << horometros_anteriores[index] << std::endl;
+      actualizar_horometro_fuel(index);
+      horometros_anteriores[index] = "0";
+    }else{
+      horometros_anteriores[index] = campos_leidos_array[6];
+    }
+
+  }
+
+  std::cout << "/* message LECTURA DESDE ARUIDNO = " << codigo_desde_arduino << std::endl;
 }
 
 void comprobar_alertas(string cp_perfil_cont_id){
@@ -201,6 +254,7 @@ void escribir_log(string archivo, time_t hora  ){
   char ano[5];
   char hora_log[10];
   char min_log[10];
+  char seg_log[10];
   struct tm * timeinfo;
 
   time ( &hora );
@@ -213,6 +267,7 @@ void escribir_log(string archivo, time_t hora  ){
   sprintf(ano, "%d",  timeinfo->tm_year);
   sprintf(hora_log, "%d",  timeinfo->tm_hour);
   sprintf(min_log, "%d",  timeinfo->tm_min);
+  sprintf(seg_log, "%d",  timeinfo->tm_sec);
 
   strcat(fecha_hoy, dia);
   strcat(fecha_hoy, "-");
@@ -223,7 +278,8 @@ void escribir_log(string archivo, time_t hora  ){
   strcat(fecha_hoy, hora_log);
   strcat(fecha_hoy, ":");
   strcat(fecha_hoy, min_log);
-  strcat(fecha_hoy, " min");
+  strcat(fecha_hoy, ":");
+  strcat(fecha_hoy, seg_log);
 
   char linea_log[200] = " ";
   strcat(linea_log , fecha_hoy );
@@ -237,70 +293,8 @@ void escribir_log(string archivo, time_t hora  ){
 }
 
 
-/***********************************
-  Funcion que actualiza el campo cp_horometro_historico de la tabla de perfiles/equipos
-************************************/
-void actualizar_horometro_fuel(string id_equipo){
-
-  string horometro_actual;
-  string horometro_ultimo_leido;
-
-  char *linea_aux = new char[200];
-  strcpy(linea_aux, codigo_desde_arduino.c_str());
-
-
-  int campo_cont = 1;
-  strtok(linea_aux, ",");
-  while(linea_aux != NULL){
-
-    //SI EL CAMPO ES EL HOROMETRO DE LA SESION Y SU VALOR ES CERO SIGNIFICA
-    //QUE SE DEBE ACTUALIZAR EL CAMPO HOROMETRO_HISTORICO DE LA TABLA DE EQUIPOS
-    if(campo_cont == 7 && strcmp(linea_aux, "0")==0 ){
-
-      horometro_actual = linea_aux;
-
-      //TRAER PENULTIMO LECTURA DEL EQUIPO PARA ACTUALIZAR EL HOROMETRO
-      //ES DECIR LA LECTURA QUE SEA DISTINTA DE 0
-      MYSQL *conn = conectar_mysql();
-
-      char consulta_collection[1024];
-      sprintf(consulta_collection, "SELECT cp_campo7 FROM tb_colection where cp_id_perfil_cont= '%s' and cp_oid = (select max(cp_oid) from tb_colection where cp_id_perfil_cont= '%s' and cp_campo7 not in ('0') ) ", id_equipo.c_str(), id_equipo.c_str() );
-      mysql_query(conn, consulta_collection);
-      MYSQL_RES * result = mysql_store_result(conn);
-
-      while(MYSQL_ROW row = mysql_fetch_row(result)){
-        horometro_ultimo_leido = row[0];
-      }
-
-      /*
-      std::cout << "message == " << consulta_collection << std::endl;
-      std::cout << "message ==" << horometro_ultimo_leido << std::endl;
-      */
-
-      mysql_close(conn);
-
-
-      //ACTUALIZAR HOROMETRO HISTORICO CON LA ULTIMA LECTURA DISTINTA DE CERO
-      char consulta[1024];
-      conn = conectar_mysql();
-      sprintf(consulta,"update tb_perfil_cont_cfg set cp_horometro_historico = ( cp_horometro_historico + '%s' ) WHERE cp_id  = '%s' ", horometro_actual.c_str() , id_equipo.c_str());
-      mysql_query(conn, consulta);
-      mysql_close(conn);
-    }
-
-
-    linea_aux = strtok(NULL, ",");
-    campo_cont++;
-  }
-
-  //std::cout << "/* message */ = " << horometro_actual << std::endl;
-  //std::cout << "/* message */ = " << id_equipo << std::endl;
-
-
-
-}
-
 void guardar_datos(int index){
+
     //************************************
     //GUARDAR HORA LINUX
     time_t hora = time(NULL);
@@ -397,17 +391,11 @@ void guardar_datos(int index){
       mysql_query(conn, insert_colection);
       mysql_close(conn);
       mensaje_consola("INSERT A TABLA 'tb_colection', realizado con exito !!!");
-
       escribir_log("lectura.txt", hora);
-
-      //SOLO PARA CATEGORIA CAMION-FUEL
-      if(equipos_array[index].getCategoria() == "9")
-        actualizar_horometro_fuel(equipos_array[index].getId());
 
     }else{
       std::cout << "INCONSISTENCIA CON CAMPOS CONFIGURADOS EN LA CATEGORIA (" <<  cantidad_campos << " campos registrados en BD)" << std::endl;
     }
-
 }
 
 
@@ -464,12 +452,9 @@ int main() {
       leer_direcciones_ip();
 
       for(int index = 0; index < equipos; index++){
-        //COMENTARIO PARA PRUEBAS
-        //codigo_desde_arduino = "slx01,1,2,3,4,5,1,7";
-        //codigo_desde_arduino = "slx2,1,1,,,2,13,9";
         recibir_desde_arduino(equipos_array[index].getIp(), index);
         if(codigo_desde_arduino != "null" && strlen(codigo_desde_arduino.c_str()) > 5){
-          mensaje_consola("\nINICIO GUARDADO DE DATOS ... " + equipos_array[index].getNombre() + " - " + equipos_array[index].getIp());
+          mensaje_consola("INICIO GUARDADO DE DATOS ... " + equipos_array[index].getNombre() + " - " + equipos_array[index].getIp());
           guardar_datos(index);
         }
       }

@@ -65,7 +65,7 @@
 
             echo "<tr> " .
                  "<form action='equiposMant.php' method='post'>" .
-                 "<td> <input type='hidden' name='cp_id'       value='".$row['cp_id'] ."'></input> ".$row['cp_id']. "</td>" .
+                 "<td> <input type='hidden' name='cp_id' value='".$row['cp_id']."'></input> ".$row['cp_id']. "</td>" .
                  "<td> <input type='hidden' name='cp_nombre' value='".$row['cp_nombre']."'></input> ".$row['cp_nombre']. "</td>" .
                  "<td> <input type='hidden' name='cp_ip'  value='".$row['cp_ip'] ."'></input> ".$row['cp_ip']. "</td>" .
                  "<td> <input type='hidden' name='id_mina'  value='".$row['id_mina'] ."'></input> ".$row['id_mina']. "</td>" .
