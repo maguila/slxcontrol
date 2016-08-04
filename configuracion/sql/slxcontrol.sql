@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 03-08-2016 a las 12:11:29
+-- Tiempo de generación: 04-08-2016 a las 19:49:45
 -- Versión del servidor: 5.5.49-0+deb8u1
 -- Versión de PHP: 5.6.20-0+deb8u1
 
@@ -629,8 +629,8 @@ INSERT INTO `tb_campos_lectura` (`id`, `campo`, `descripcion`, `tipo_campo`, `or
 (24, 'cp_amp2', '', 'AMPERAJE', 4, 1),
 (25, 'cp_amp3', '', 'AMPERAJE', 6, 1),
 (26, 'cp_campo1', '', 'TEMPERATURA', 1, 1),
-(34, 'cp_temp', '', 'TEMPERATURA', 1, 2),
-(35, 'cp_amp1', '', 'AMPERAJE', 2, 2),
+(34, 'cp_campo1', '', 'TEMPERATURA', 1, 2),
+(35, 'cp_campo2', '', 'AMPERAJE', 2, 2),
 (36, 'cp_volt1', '', 'VOLTAJE', 3, 2),
 (37, 'cp_amp2', '', 'AMPERAJE', 4, 2),
 (38, 'cp_volt2', '', 'VOLTAJE', 5, 2),
@@ -687,7 +687,7 @@ CREATE TABLE IF NOT EXISTS `tb_cliente_cfg` (
 --
 
 INSERT INTO `tb_cliente_cfg` (`cp_id`, `cp_nombre`, `cp_ubicacion`, `cp_correo1`, `cp_correo2`) VALUES
-(1, 'MIMcontrol CMDIC', 'Minera Collahuasi', 'contacto@collahuasi.cl', 'contacto2@collahuasi.cl');
+(1, 'SLXcontrol CMDIC', 'Minera Collahuasi', 'contacto@collahuasi.cl', 'contacto2@collahuasi.cl');
 
 -- --------------------------------------------------------
 
@@ -727,15 +727,7 @@ CREATE TABLE IF NOT EXISTS `tb_comentarios` (
   `cp_usuario_id` int(11) NOT NULL,
   `cp_oid` bigint(255) NOT NULL,
   `cp_coment` varchar(256) COLLATE utf8_spanish_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `tb_comentarios`
---
-
-INSERT INTO `tb_comentarios` (`cp_id`, `cp_perfil_id`, `cp_usuario_id`, `cp_oid`, `cp_coment`) VALUES
-(1, 1, 2, 1440885500, 'Panel solar sin datos de corriente'),
-(2, 2, 2, 1440885704, 'no se tienen los datos de corriente del arreglo de paneles');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -771,15 +763,7 @@ CREATE TABLE IF NOT EXISTS `tb_estado_cont` (
   `cp_perfil_id` int(11) NOT NULL,
   `cp_estado_cfg_id` int(11) NOT NULL,
   `cp_descripcion` varchar(256) COLLATE utf8_spanish_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `tb_estado_cont`
---
-
-INSERT INTO `tb_estado_cont` (`cp_id`, `cp_perfil_id`, `cp_estado_cfg_id`, `cp_descripcion`) VALUES
-(1, 1, 1, 'Controlador Activo'),
-(2, 2, 3, 'Controlador Eliminado');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -798,7 +782,7 @@ CREATE TABLE IF NOT EXISTS `tb_modelo_cfg` (
 --
 
 INSERT INTO `tb_modelo_cfg` (`cp_id`, `cp_nombre`, `cp_descripcion`) VALUES
-(1, 'MIM-Mine-00010101', 'MIMcontrol Mine V 1');
+(1, 'SLX-Mine-00010101', 'MIMcontrol Mine V 5');
 
 -- --------------------------------------------------------
 
@@ -837,15 +821,15 @@ CREATE TABLE IF NOT EXISTS `tb_perfil_cont_cfg` (
   `cp_modelo_id` int(11) NOT NULL,
   `id_mina` varchar(30) COLLATE utf8_spanish_ci DEFAULT NULL,
   `cp_horometro_historico` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `tb_perfil_cont_cfg`
 --
 
 INSERT INTO `tb_perfil_cont_cfg` (`cp_id`, `cp_cat_id`, `cp_nombre`, `cp_ip`, `cp_oid`, `cp_modelo_id`, `id_mina`, `cp_horometro_historico`) VALUES
-(1, 9, 'slx01', '192.168.1.173', 1440789600, 1, '44', '4520'),
-(2, 9, 'slx02', '192.168.1.167', 1440870120, 1, '770', '2722');
+(10, 9, 'slx01', '192.168.1.173', 0, 1, '334', '199'),
+(11, 9, 'slx03', '192.168.1.156', 0, 1, '666', '1843');
 
 -- --------------------------------------------------------
 
@@ -1024,7 +1008,7 @@ MODIFY `cp_id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT de la tabla `tb_comentarios`
 --
 ALTER TABLE `tb_comentarios`
-MODIFY `cp_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `cp_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tb_estado_cfg`
 --
@@ -1034,7 +1018,7 @@ MODIFY `cp_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 -- AUTO_INCREMENT de la tabla `tb_estado_cont`
 --
 ALTER TABLE `tb_estado_cont`
-MODIFY `cp_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `cp_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tb_modelo_cfg`
 --
@@ -1049,7 +1033,7 @@ MODIFY `cp_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 -- AUTO_INCREMENT de la tabla `tb_perfil_cont_cfg`
 --
 ALTER TABLE `tb_perfil_cont_cfg`
-MODIFY `cp_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
+MODIFY `cp_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT de la tabla `tb_registro_usu`
 --
@@ -1070,12 +1054,6 @@ MODIFY `cp_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 ALTER TABLE `tb_alert`
 ADD CONSTRAINT `tb_alert_ibfk_2` FOREIGN KEY (`cp_alert_cgf_id`) REFERENCES `tb_alert_cfg` (`cp_id`) ON DELETE CASCADE ON UPDATE CASCADE,
 ADD CONSTRAINT `tb_alert_ibfk_3` FOREIGN KEY (`cp_estado_cfg_id`) REFERENCES `tb_estado_cfg` (`cp_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `tb_alert_cfg`
---
-ALTER TABLE `tb_alert_cfg`
-ADD CONSTRAINT `tb_alert_cfg_ibfk_1` FOREIGN KEY (`cp_perfil_cont_id`) REFERENCES `tb_perfil_cont_cfg` (`cp_id`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `tb_cambios_perfil_cont`
@@ -1107,7 +1085,7 @@ ADD CONSTRAINT `tb_estado_cont_ibfk_2` FOREIGN KEY (`cp_estado_cfg_id`) REFERENC
 -- Filtros para la tabla `tb_perfil_cont_cfg`
 --
 ALTER TABLE `tb_perfil_cont_cfg`
-ADD CONSTRAINT `tb_perfil_cont_cfg_ibfk_2` FOREIGN KEY (`cp_modelo_id`) REFERENCES `tb_modelo_cfg` (`cp_id`) ON UPDATE CASCADE,
+ADD CONSTRAINT `tb_perfil_cont_cfg_ibfk_2` FOREIGN KEY (`cp_modelo_id`) REFERENCES `tb_modelo_cfg` (`cp_id`),
 ADD CONSTRAINT `tb_perfil_cont_cfg_ibfk_3` FOREIGN KEY (`cp_cat_id`) REFERENCES `tb_categorias_cfg` (`cp_id`) ON UPDATE CASCADE;
 
 --
