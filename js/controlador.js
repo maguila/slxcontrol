@@ -1,23 +1,23 @@
 $(document).ready(function(){
-		
 		setCategoria(true);
 		loaddatos();
+});
 
-		
-	});
+
 var snom = "";
 var scat = "";
+
 function loaddatos(){
 	var link = $(location).attr('search');
 	var lscat = "";
 	var lsnom = "";
-	
+
 	if(link != ""){
 		var str = link.split("&");
 		lscat = str[0].replace("?cat=","");
 		lsnom = str[1].replace("cont=","");
 		var image = $(".detimg-cont");
-	    image.attr("src","img/iconos-menu/"+lscat+"-C.png");
+	    image.attr("src","img/iconos-menu/"+lscat);
 	    snom = lsnom.replace(/-/g,' ');
 	    scat = lscat;
 	    /*console.log(snom);*/
@@ -35,7 +35,7 @@ function loaddatos(){
 			var fecha_final = dia+"/"+mes+" "+hora+":"+min;
 			//console.log(fecha_final);
 			$.get('templates/categorias.mst', function(templates) {
-					
+
 					var templedata = {
 						ide: ide
 					}
@@ -48,7 +48,7 @@ function loaddatos(){
 			});
 		});
     });
-	
+
 	$.getJSON('php/json/equipos.json', function(data){
 		var mensaje="";
 		var temperatura = 0;
@@ -57,7 +57,7 @@ function loaddatos(){
 		var ib = 0;
 		var vb = 0;
 		var il = 0;
-		var vl = 0;		
+		var vl = 0;
 		$.each(data, function(p, v){
 			if(v.Nombre == snom){
 				mensaje = v.Mensaje;
@@ -71,13 +71,13 @@ function loaddatos(){
 			ib = 0;
 			vb = 0;
 			il = 0;
-			vl = 0;		
+			vl = 0;
 
 			if(mensaje.length > 0){
 				//$("#btn-Sitio-"+i).addClass("estado-alerta");
 		    	var img = $(".detimg-cont");
 		    	img.addClass("estado-alerta");
-		    	var ruta = "img/iconos-menu/"+scat+"-C2.png";
+		    	var ruta = "img/iconos-menu/"+scat;
 		    	//console.log(ruta);
 		    	img.attr("src",ruta);
 		    	$(".estado-desconec").show(500);
@@ -159,9 +159,9 @@ function loaddatos(){
 			}
 		}
 		$(".subtitulo-fot span").html(Math.round(load)+" %");
-		
 
-		setTimeout ('loaddatos()', 5000); 
+
+		setTimeout ('loaddatos()', 5000);
 	});
 }
 $(".btn-coment").click(function(){
@@ -200,4 +200,3 @@ function comentarios(estado, mensaje, nomequi){
         });
     }
 }
-

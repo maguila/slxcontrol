@@ -34,8 +34,8 @@
 
         if($porcentaje <= 30){
 
-            $html_camion_rojo = "<div class='camion camion-rojo'>" .
-                                "<div id='".$row['cp_id_perfil_cont']."' class='col-md-6 estado-camion-l'>" .
+            $html_camion_rojo = "<div class='camion-rojo'>" .
+                                "<div id='".$row['cp_id']."' data_horometro_historico='".$row['cp_horometro_historico']."' class='col-md-6 camion estado-camion-l'>" .
                                 "  <div class='espacio-ecam-l'> " .
                                 "     <div class='col-lg-3'><img src='img/iconos-menu/bidon-b3.png' class='img-bidon-l'></div> " .
                                 "       <div class='col-lg-9'> " .
@@ -51,7 +51,7 @@
          }else if($porcentaje > 30 && $porcentaje <= 40){
 
             $html_camion_amarillo = "<div class='camion camion-amarrillo'>" .
-                                    "<div id='".$row['cp_id_perfil_cont']."' class='col-lg-4 estado-camion-m'>" .
+                                    "<div id='".$row['cp_id']."' class='col-lg-4 camion estado-camion-m'>" .
                                     "  <div class='espacio-ecam-m'> " .
                                     "    <div class='col-lg-3'><img src='img/iconos-menu/bidon-a3.png' class='img-bidon-m'></div>" .
                                     "      <div class='col-lg-9'>" .
@@ -65,7 +65,7 @@
            $html_salida .= $html_camion_amarillo;
 
          }else if($porcentaje > 40 ){
-           $html_camion_azul = "<div id='".$row['cp_id_perfil_cont']."' class='camion-azul'> CTMM </div>";
+           $html_camion_azul = "<div id='".$row['cp_id']."' class='camion camion-azul'> CTMM </div>";
            $html_salida .= $html_camion_azul;
          }
 

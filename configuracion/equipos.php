@@ -36,6 +36,8 @@
           <span class="glyphicon glyphicon-plus"></span>
           <span>Crear Nuevo Equipo</span>
       </button>
+
+      <a href="equipos.php" class="btn btn-primary" style="margin-bottom: 5px;"> Refrescar Tabla</a>
     </form>
 
     <table class="table table-bordered table-hover">

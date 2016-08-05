@@ -123,9 +123,11 @@
 
        leer_camiones();
 
+       /*
        setInterval(function(){
          leer_camiones();
        }, 4000);
+       */
 
        function leer_camiones(){
          $.ajax({
@@ -164,7 +166,7 @@
 
 
              $(".camion").click(function(){
-               window.location="equipos.html?id_equipo="+$(this).attr("id");
+               window.location="equipos.html?cat=9&cont=" + $(this).attr("data_horometro_historico");
              });
 
            },

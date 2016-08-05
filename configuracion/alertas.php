@@ -31,14 +31,29 @@
     <small>Aca se muestran los campos actualmente configurados para todos los módulos</small>
     <hr></hr>
 
+    <div class="row">
+
+        <div class="col-md-3">
+          <form method="post" action="alertasMant.php" class="form-inline" style="margin-bottom: 10px;">
+            <button href="camposMant.php" class="btn btn-success" style="margin-bottom: 5px;" name="accion" value="crear">
+              <span class="glyphicon glyphicon-plus"></span>
+              <span>Crear Nueva Alerta</span>
+            </button>
+          </form>
+        </div>
+
+
+    </div>
+
     <table class="table table-bordered table-hover">
       <thead>
         <tr>
-          <th>Nombre Alerta</th>
-          <th>Descripción</th>
-          <th>Valor Maximo</th>
-          <th>Valor Minimo</th>
-          <th>Acciones</th>
+          <th class="active">Nombre Equipo</th>
+          <th class="active">Campo de Alerta</th>
+          <th class="active">Descripción</th>
+          <th class="active">Valor Minimo</th>
+          <th class="active">Valor Maximo</th>
+          <th class="active">Acciones</th>
         </tr>
       </thead>
       <tbody>
@@ -48,12 +63,19 @@
           $result = $conn->query($sql);
 
           while ($row = $result->fetch_assoc()) {
+
+            $sql_equipo = "select * from tb_perfil_cont_cfg where cp_id = '".$row['cp_perfil_cont_id']."' ";
+            $result_equipo = $conn->query($sql_equipo);
+            $row_equipo    = $result_equipo->fetch_assoc();
+
             echo "<tr> " .
-                 "<form action='camposMant.php' method='post'>" .
-                 "<td> <input type='hidden' name='cp_nombre'       value='".$row['cp_nombre']      ."'></input> ".$row['cp_nombre']. "</td>" .
+                 "<form action='alertasMant.php' method='post'>" .
+                 " <input type='hidden' name='cp_id' value='".$row['cp_id']."'></input>" .
+                 "<td> <input type='hidden' name='cp_perfil_cont_id' value='".$row['cp_perfil_cont_id']."'></input> ".$row_equipo['cp_nombre']. "</td>" .
+                 "<td> <input type='hidden' name='cp_nombre' value='".$row['cp_nombre']      ."'></input> ".$row['cp_nombre']. "</td>" .
                  "<td> <input type='hidden' name='cp_descrip' value='".$row['cp_descrip']."'></input> ".$row['cp_descrip']. "</td>" .
-                 "<td> <input type='hidden' name='cp_max'  value='".$row['cp_max'] ."'></input> ".$row['cp_max']. "</td>" .
-                 "<td> <input type='hidden' name='cp_mim' value='".$row['cp_mim']."'></input> ".$row['cp_mim']. "</td>" .
+                 "<td> <input type='hidden' name='cp_min' value='".$row['cp_min'] ."'></input> ".$row['cp_min']. "</td>" .
+                 "<td> <input type='hidden' name='cp_max' value='".$row['cp_max']."'></input> ".$row['cp_max']. "</td>" .
                  "<td>" .
                  "   <button class='btn btn-success btn-sm' value='editar' name='accion'> " .
                  "      <span class='glyphicon glyphicon-edit'></span>" .

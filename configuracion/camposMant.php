@@ -124,8 +124,11 @@
               </select>
           </div>
 
+    </div>
+    <div class="col-md-6">
+
           <div class="form-group">
-              <label>Categoría (Seleccione la categoria a la que pertenece este campo)</label>
+              <label>Categoría (Seleccione la categoría a la que pertenece este campo)</label>
               <select class="form-control" name="categorias_id" value="<?php echo $_POST['categorias_id']; ?>" <?php echo $disable; ?> >
                 <?php
                   $sql = "SELECT * FROM tb_categorias_cfg order by cp_nombre";

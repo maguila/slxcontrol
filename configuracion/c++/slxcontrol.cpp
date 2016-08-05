@@ -160,7 +160,7 @@ void actualizar_horometro_fuel(int index){
 * PARA FACILITAR FUTURAS LECTURAS
 ****************************************************/
 void recibir_desde_arduino(string ip_temp, int index){
-  mensaje_consola("Leyendo Controlador : " + ip_temp);
+  mensaje_consola("\nLeyendo Controlador : " + ip_temp);
   char cmd[600];
   char cadena[150];
   char cadena2[150];
@@ -182,10 +182,17 @@ void recibir_desde_arduino(string ip_temp, int index){
   fclose (archivo_leer); // cierra el archivo
 
   codigo_desde_arduino = cadena4;
-  //codigo_desde_arduino = "slx01,1,2,3,4,5,0,7"; //TODO: PRUEBAS
 
-  if(codigo_desde_arduino == "null"){
-    cout << "Sin Datos (snmpget ...)" << endl;
+
+  //TODO: BORRAR AL TERMINAR LAS PRUEBAS
+  //codigo_desde_arduino = equipos_array[index].getNombre() + ",1,2,3,4,5,0,7";
+  //FIN PRUEBAS
+
+
+  if(codigo_desde_arduino == "null" || strlen(codigo_desde_arduino.c_str()) < 5){
+    cout << "SIN DATOS SNMP (snmpget ...)" << endl;
+
+  //LECTURA SNMP CORRECTA DEBE SEPARAR LOS CAMPOS EN UN ARRAY GLOBAL PARA FACIL LECTURA
   }else{
     char *linea_aux = new char[200];
     strcpy(linea_aux, codigo_desde_arduino.c_str());
@@ -196,31 +203,38 @@ void recibir_desde_arduino(string ip_temp, int index){
       linea_aux = strtok(NULL, ",");
       campo_cont++;
     }
-  }
+    std::cout << "LECTURA DESDE ARUIDNO = " << codigo_desde_arduino << std::endl;
+
+    //SOLO PARA CATEGORIA CAMION-FUEL
+    if(equipos_array[index].getCategoria() == "9"){
+
+      /* TODO: PRUEBAS */
+      /*
+      int random = rand() % 5 + 0;
+      ostringstream oss;
+      oss<< random;
+      campos_leidos_array[6] = oss.str();
+      std::cout << "RANDOM = " << random << std::endl;
+      */
+      //FIN PRUEBA
 
 
-  //SOLO PARA CATEGORIA CAMION-FUEL
-  if(equipos_array[index].getCategoria() == "9"){
+      if(strcmp(campos_leidos_array[6].c_str(), "0") == 0){
+        //std::cout << "RANDOM " << equipos_array[index].getNombre() << " HOROMETRO ES CERO ACTUAL = " << campos_leidos_array[6] << " ANTERIOR = " << horometros_anteriores[index] << std::endl;
+        actualizar_horometro_fuel(index);
+        horometros_anteriores[index] = "0";
+      }else{
+        //std::cout << "RANDOM HOROMETRO " << equipos_array[index].getNombre() << " == "  << campos_leidos_array[6] << std::endl;
+        horometros_anteriores[index] = campos_leidos_array[6];
+      }
 
-    /*
-    int random = rand() % 2 + 0;
-    ostringstream oss;
-    oss<< random;
-    campos_leidos_array[6] = oss.str();
-    std::cout << "RANDOM = " << random << std::endl;
-    */
-
-    if(strcmp(campos_leidos_array[6].c_str(), "0") == 0){
-      //std::cout << "/*ACTUALIZAR HOROMETRO ES CERO ACTUAL = " << campos_leidos_array[6] << " ANTERIOR = " << horometros_anteriores[index] << std::endl;
-      actualizar_horometro_fuel(index);
-      horometros_anteriores[index] = "0";
-    }else{
-      horometros_anteriores[index] = campos_leidos_array[6];
     }
 
   }
 
-  std::cout << "/* message LECTURA DESDE ARUIDNO = " << codigo_desde_arduino << std::endl;
+
+
+
 }
 
 void comprobar_alertas(string cp_perfil_cont_id){
@@ -390,7 +404,7 @@ void guardar_datos(int index){
       MYSQL *conn = conectar_mysql();
       mysql_query(conn, insert_colection);
       mysql_close(conn);
-      mensaje_consola("INSERT A TABLA 'tb_colection', realizado con exito !!!");
+      mensaje_consola("LECTURA PARA EQUIPO "+equipos_array[index].getNombre()+", GUARDADA CON EXITO !!!");
       escribir_log("lectura.txt", hora);
 
     }else{
