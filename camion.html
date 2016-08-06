@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!--<link rel="shortcut icon" href="image/favicon2.ico">-->
+    <link rel="icon" type="image/png" href="img/favicon.png" />
+
+    <title>SLXcontrol</title>
+    <!-- Bootstrap core CSS -->
+     <link href="css/bootstrap.css" rel="stylesheet">
+     <link href="css/font.css" rel="stylesheet">
+     <link rel="stylesheet" href="css/estilo.css" type="text/css">
+
+     <style>
+        .panel-idcamion{
+          color: #FFFFFF;
+        }
+
+     </style>
+
+  </head>
+  <body>
+      <div id="menu"></div>
+
+      <div class="panel-idcamion">
+        <div class="panel-anuncios">
+          <div class="container">
+
+          </div>
+        </div>
+        <div class="container">
+
+          <div class="panel-detalle-camion">
+            <div class="col-lg-3 izq-pag-cam">
+              <div class="img-estado-cam">
+                <img src="img/iconos-menu/icon-camion-b.png" class="img-estado-cm">
+              </div>
+              <h1 id="nombre_camion"></h1>
+              <h2 id="id_mina">  </h2>
+              <h2 id="horometro">  </h2>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  </body>
+
+      <footer id="footer">
+
+      </footer>
+
+      <div id="aux_camiones" style="display: none;"></div>
+
+
+    <script src="js/jquery-2.1.4.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/mustache.js"></script>
+    <script src="js/menu.js"></script>
+    <script src="js/index3.js"></script>
+
+
+    <script>
+
+
+     $(function(){
+
+       $.ajax({
+         url: "php/leerEquipos.php",
+         data: {"accion" : "TRAER_EQUIPO", "equipo" : getUrlParameter("equipo") },
+         method: "POST",
+         success: function(response){
+           var json = $.parseJSON(response);
+           $("#nombre_camion").html("CAMION "+json.cp_nombre);
+           $("#id_mina").html(json.id_mina);
+           $("#horometro").html(json.cp_horometro_historico);
+         }
+       });
+
+
+
+       function getUrlParameter(sParam) {
+           var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+               sURLVariables = sPageURL.split('&'),
+               sParameterName,
+               i;
+
+           for (i = 0; i < sURLVariables.length; i++) {
+               sParameterName = sURLVariables[i].split('=');
+
+               if (sParameterName[0] === sParam) {
+                   return sParameterName[1] === undefined ? true : sParameterName[1];
+               }
+           }
+       };
+
+     });
+
+
+
+    </script>
+
+
+
+  </html>

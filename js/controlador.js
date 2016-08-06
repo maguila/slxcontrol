@@ -1,12 +1,12 @@
 $(document).ready(function(){
+
 		setCategoria(true);
 		loaddatos();
-});
 
 
+	});
 var snom = "";
 var scat = "";
-
 function loaddatos(){
 	var link = $(location).attr('search');
 	var lscat = "";
@@ -17,7 +17,7 @@ function loaddatos(){
 		lscat = str[0].replace("?cat=","");
 		lsnom = str[1].replace("cont=","");
 		var image = $(".detimg-cont");
-	    image.attr("src","img/iconos-menu/"+lscat);
+	    image.attr("src","img/iconos-menu/"+lscat+"-C.png");
 	    snom = lsnom.replace(/-/g,' ');
 	    scat = lscat;
 	    /*console.log(snom);*/
@@ -77,7 +77,7 @@ function loaddatos(){
 				//$("#btn-Sitio-"+i).addClass("estado-alerta");
 		    	var img = $(".detimg-cont");
 		    	img.addClass("estado-alerta");
-		    	var ruta = "img/iconos-menu/"+scat;
+		    	var ruta = "img/iconos-menu/"+scat+"-C2.png";
 		    	//console.log(ruta);
 		    	img.attr("src",ruta);
 		    	$(".estado-desconec").show(500);

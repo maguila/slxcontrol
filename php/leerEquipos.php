@@ -2,10 +2,22 @@
 
     include("connection.php");
     $categoria_post = $_POST['categoria_id'];
+    $accion         = $_POST['accion'];
+    $equipo_id      = $_POST['equipo'];
 
 
-    $rows = get_equipos_rows($categoria_post);
-    echo get_html_equipos($rows);
+    if($accion == 'LISTAR_EQUIPOS'){
+      $rows = get_equipos_rows($categoria_post);
+      echo get_html_equipos($rows);
+
+    }else if($accion == 'TRAER_EQUIPO'){
+      $result = get_equipo($equipo_id);
+      //RETORNA JSON
+      foreach ($result as $row) {
+        echo json_encode($row);
+      }
+    }
+
 
 
     //TRAE TODOS LOS CAMIONES EN SU FORMATO HTML
@@ -80,5 +92,11 @@
       $conn = crearConexion();
       $rows_equipos = $conn->query("SELECT * FROM tb_perfil_cont_cfg where cp_cat_id = '".$categoria_id."' ");
       return $rows_equipos;
+    }
+
+    function get_equipo($equipo_id){
+      $conn = crearConexion();
+      $result = $conn->query("SELECT * FROM tb_perfil_cont_cfg where cp_id = '".$equipo_id."' ");
+      return $result;
     }
 ?>

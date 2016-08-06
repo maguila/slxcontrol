@@ -107,6 +107,12 @@ string get_resultado_comando_linux(string comando){
 }
 
 
+bool is_number(const std::string& s){
+    std::string::const_iterator it = s.begin();
+    while (it != s.end() && std::isdigit(*it)) ++it;
+    return !s.empty() && it == s.end();
+}
+
 /***********************************************************
 * Leer direcciones ip desde la base de datos
 * y es guardado en un array de objetos de la clase Equipos
@@ -217,9 +223,9 @@ void recibir_desde_arduino(string ip_temp, int index){
       std::cout << "RANDOM = " << random << std::endl;
       */
       //FIN PRUEBA
+      
 
-
-      if(strcmp(campos_leidos_array[6].c_str(), "0") == 0){
+      if( is_number(campos_leidos_array[6]) && strcmp(campos_leidos_array[6].c_str(), "0") == 0){
         //std::cout << "RANDOM " << equipos_array[index].getNombre() << " HOROMETRO ES CERO ACTUAL = " << campos_leidos_array[6] << " ANTERIOR = " << horometros_anteriores[index] << std::endl;
         actualizar_horometro_fuel(index);
         horometros_anteriores[index] = "0";

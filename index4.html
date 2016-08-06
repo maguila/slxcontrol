@@ -69,26 +69,6 @@
           </div>
         </div>
       </div>
-      <div class="panel-idcamion">
-        <div class="panel-anuncios">
-          <div class="container">
-
-          </div>
-        </div>
-        <div class="container">
-
-          <div class="panel-detalle-camion">
-            <div class="col-lg-3 izq-pag-cam">
-              <div class="img-estado-cam">
-                <img src="img/iconos-menu/icon-camion-b.png" class="img-estado-cm">
-              </div>
-              <div class="num-estado-cam">
-
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
   </body>
 
@@ -123,16 +103,14 @@
 
        leer_camiones();
 
-       /*
        setInterval(function(){
          leer_camiones();
        }, 4000);
-       */
 
        function leer_camiones(){
          $.ajax({
            url: "php/leerEquipos.php",
-           data: {"categoria_id" : "9" },
+           data: {"categoria_id" : "9", "accion" : "LISTAR_EQUIPOS" },
            method: "POST",
            success: function(response){
              $("#aux_camiones").html(response);
@@ -166,7 +144,7 @@
 
 
              $(".camion").click(function(){
-               window.location="equipos.html?cat=9&cont=" + $(this).attr("data_horometro_historico");
+               window.location="camion.html?equipo=" + $(this).attr("id");
              });
 
            },
