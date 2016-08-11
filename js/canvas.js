@@ -1,7 +1,9 @@
- function iniciaCanvas(idCanvas){
+        function iniciaCanvas(idCanvas){
           var elemento = document.getElementById(idCanvas);
           if (elemento &&  elemento.getContext){
             var contexto = elemento.getContext('2d');
+            contexto.width = elemento.clientWidth;
+            contexto.height = elemento.clientHeight;
             if (contexto) {
               return contexto;
             }
@@ -16,7 +18,7 @@
           if(tipo == "ip"){
              var cxt=iniciaCanvas("load_amp");
           }
-         
+          
           var valor_f = 40;
           var rango = 20;
           var valor_f_temp = valor_f;
@@ -248,6 +250,8 @@
         function canvas_ca_volt(deg, tipo){
           if(tipo == "vb"){
            var cxt=iniciaCanvas("bat_volt");
+           console.log(cxt);
+           console.log(deg);
           }
           if(tipo == "vl"){
            var cxt=iniciaCanvas("load_volt");
@@ -260,7 +264,6 @@
           var valor_f_temp = valor_f;
           var r1 = rango; 
           var r2 = valor_f;
-
           if(deg <= r1){  
             var deg_fin = 34;
             if(deg == r1){           
@@ -594,6 +597,59 @@
             cxt.lineWidth=15; //grosor de línea
             cxt.beginPath(); //nueva ruta
             cxt.arc(115,105,95,radians_f,radians_fin,false);  
+            cxt.stroke();
+          }
+        }
+
+        function canvas_combustible(deg){
+           var cxt=iniciaCanvas("porcentaje_com");
+           //deg = 1;
+           var numero = deg;
+           console.log(deg);
+           deg = deg / 100;
+           console.log(deg);
+           var maximo = 150;
+           var difirencia = Math.round(deg*maximo);
+           console.log(difirencia);
+           var dif_final = maximo - difirencia;
+           console.log(dif_final);
+           
+          if (cxt) {
+             var dif = parseInt(difirencia);
+             var dif_f = parseInt(dif_final);
+
+            cxt.beginPath(); //iniciar ruta
+            cxt.fillStyle="#555658"; //color de línea
+            //cxt.lineWidth=17; //grosor de línea
+            //cxt.beginPath(); //nueva ruta
+           // cxt.moveTo(0,0);
+           // cxt.lineTo(0,10);
+            //cxt.arc(115,137,100,radians_f,radians_fin,false); 
+            cxt.fillRect(0,0,350,dif_f); 
+
+            cxt.stroke();
+           
+            cxt.beginPath(); //iniciar ruta
+            //var numero = parseInt(deg);
+            console.log(numero);
+            if(numero > 40){
+              console.log(1);
+              cxt.fillStyle="#00AAB5";//color de línea
+            }
+            if(numero >= 30 && numero <= 40){
+              console.log(2);
+              cxt.fillStyle="#EBC134";//color de línea
+            }
+            if(numero < 30){
+              console.log(3);
+              cxt.fillStyle="#BF0411";//color de línea
+            }
+             
+            //cxt.lineWidth=17; //grosor de línea
+            //cxt.arc(115,137,100,radians,radians_f,false); 
+           // cxt.moveTo(0,10);
+           // cxt.lineTo(0,0);
+           cxt.fillRect(0,dif_f,350,dif);
             cxt.stroke();
           }
         }

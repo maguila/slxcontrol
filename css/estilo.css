@@ -3,7 +3,7 @@ html{
 	min-height: 100%;
 }
 body{
- background-color: #2F2A28;
+ background-color: #2F2A29;
  margin-bottom: 72px;
 }
 
@@ -289,6 +289,52 @@ body{
 }
 .panel-detalle-camion{
 	margin-top: 30px;
+}
+.bloque-detalle-camion{
+	margin-left: 10px;
+	font-family: "futura-book", sans-serif; font-weight: 100;
+}
+.label-camion{
+	font-size: 41px;
+	color: #0095AA;
+	letter-spacing: 4px;
+}
+.label-ide-camion{
+	font-size: 74px;
+	color:white;
+}
+.label-horometro-camion{
+	color: white;
+	font-size: 26px;
+	letter-spacing: 3px;
+}
+.porcentaje_camion{
+	/*position: absolute;*/
+	/*float: left;*/
+	color: white;
+	font-size: 100px;
+	margin-top: -440px;
+	text-align: center;
+	margin-left: -25px;
+}
+
+/*.animate-bat{
+	height: 200px;
+	color: white;
+	width: 300px;
+	background-color: red;
+	margin-bottom: 200px;
+	height: 25px;
+}*/
+.espacio_linea_combust{
+	margin-top: 19px;
+	/*height: 300px;*/
+}
+.eletemto_porcentaje{
+	height: 266px;
+	width: 350px;
+	z-index: -1;
+	position: absolute;
 }
 /**********  Footer  ********************************************/
 #footer{

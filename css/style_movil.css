@@ -1,0 +1,204 @@
+@media (max-width: 1199px) {
+  .btn-block{
+    margin-left: 0px;
+  }
+
+  .container {
+      width: 100%;
+  }
+
+  #cuerpo{
+    width: 77%;
+  }
+
+  .menu-superior .sesion{
+    padding-left: 0px;
+  }
+
+  .menu-centro{
+    text-align: right;
+    margin-top: -40px;
+  }
+
+
+  #sub-menu .col-lg-6{
+    text-align: center;
+  }
+
+  #sub-menu .col-lg-1{
+    width: 60%;
+    margin-left: auto;
+  }
+
+  #sub-menu #cliente{
+    font-size: 32px;
+    text-align: center;
+  }
+
+  .col-lg-6{
+    float: left;
+    width: 100%;
+  }
+
+  .med-caja-cat .row{
+    text-align: center;
+  }
+
+
+  .caja-cat{
+    width: 100%;
+    margin-bottom: 25px;
+  }
+
+  #sub-menu2 {
+      margin-top: 25px;
+      text-align: center;
+      margin-bottom: 60px;
+  }
+
+  #sub-menu2 #fuel-cli{
+    font-size: 28px;
+  }
+
+  .panel-camiones{
+    text-align: -webkit-center;
+    margin-bottom: 100px;
+  }
+
+  .espacio-ecam-l {
+    height: 130px;
+  }
+
+  .numero-cam-h{
+    width: 100%;
+    margin-left: 0px;
+  }
+
+  .numero-cam-l{
+    width: 100%;
+  }
+
+  .numero-cam-m{
+    width: 100%;
+  }
+
+  .img-bidon-l{
+    padding-top: 0px;
+  }
+
+  .col-lg-1 .cliente-foto{
+    width: 50px;
+  }
+
+  .bnt-categoria{
+    text-align: center;
+  }
+
+  .pull-right{
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  #leyend-cat{
+    font-size: 20px;
+  }
+
+  #sub-menu-cat{
+    text-align: center;
+    margin-top: 30px;
+  }
+
+  .form-signin .col-lg-8{
+    margin-top: 20px;
+    left: 5%;
+  }
+
+  .form-signin .col-lg-4{
+    left: 5%;
+  }
+
+
+
+  #sub-menu {
+    margin-top: 30px;
+  }
+
+  .med-caja-cat{
+    padding-top: 20px;
+  }
+
+  .caja-cat{
+    height: 270px;
+  }
+
+  #sub-menu .cliente-foto {
+    margin-left: 0px;
+  }
+
+  .estado-camion-l {
+    margin-top: 2px;
+  }
+
+  #camionesRojos{
+    margin-top: 80px;
+  }
+
+  #footer{
+    position: fixed;
+  }
+
+  .der-pag-cam{
+    margin-bottom: 120px;
+  }
+
+  .img-estado-cam{
+    text-align: center;
+  }
+
+  .bloque-detalle-camion{
+    text-align: center;
+    margin-bottom: 70px;
+  }
+
+  .lgd-cam-l, .lgd-cam-h, .lgd-cam-m{
+    width: 100%;
+    font-size: 16px;
+    text-align: left;
+    margin-top: 0px;
+  }
+
+
+
+  .cat-estados-num{
+    margin-top: 40px;
+    padding-left: 0px;
+  }
+
+  .estados-equipos{
+    margin-top: 10px;
+  }
+
+  .cat-estados-num .col-lg-5{
+    margin-bottom: 40px;
+  }
+
+  .num-estado{
+    padding: 7px 10px 7px 10px;
+    border-radius: 2px;
+  }
+
+  .estado-cat{
+    font-size: 20px;
+    padding-left: 0px;
+  }
+
+  .num-equipos{
+    height: 30px;
+    width: 30px;
+    border-radius: 3px;
+  }
+
+  .sub-menu-cat-right{
+    margin-top: 30px;
+  }
+}

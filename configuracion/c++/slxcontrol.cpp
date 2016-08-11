@@ -2,10 +2,13 @@
 // Name          : slxcontrol.cpp
 // Author        : Pablo Campillay
 // Editor        : Miguel Aguila
-// Fecha Edicion : 08-08-2016
-// Version       : 1.6
-// Ultimos cambios: Quitar la actualizacion del horometro historico
+// Fecha Edicion : 27-07-2016
+// Version       : 1.4
+// Ultimos cambios: leer directorio y datos de conexion desde un xml. para ser administrados desde la web de configuracion.
 // Observaciones :
+//                 1.- actualizar el campo cp_horometro_historico cuando la lectura del campo cp_campo4 sea 0
+//                 y realizar la suma (cp_horometro_historico = cp_horometro_historico + ultimo cp_campo4 de la lectura)
+//                 slx2,,,,,2,13,10,1 validar
 //============================================================================
 #include </usr/include/mysql/mysql.h>
 #include <algorithm>
@@ -51,9 +54,10 @@ string horometros_anteriores[100];
 
 string codigo_desde_arduino;
 int equipos;
-int cantidad_campos_lectura;
+
 
 string directorio_principal;
+string directorio_host_cfg;
 string configuracion_delay;
 
 string server;
@@ -141,6 +145,22 @@ void leer_direcciones_ip(){
 }
 
 
+/***********************************
+  Funcion que actualiza el campo
+  cp_horometro_historico de la tabla de perfiles/equipos
+************************************/
+void actualizar_horometro_fuel(int index){
+  //ACTUALIZAR HOROMETRO HISTORICO CON LA ULTIMA LECTURA DISTINTA DE CERO
+  char consulta[1024];
+  MYSQL *conn = conectar_mysql();
+  sprintf(consulta,"update tb_perfil_cont_cfg set cp_horometro_historico = ( cp_horometro_historico + '%s' ) WHERE cp_id  = '%s' ",
+          horometros_anteriores[index].c_str() , equipos_array[index].getId().c_str());
+
+  mysql_query(conn, consulta);
+  mysql_close(conn);
+}
+
+
 /****************************************************
 * REALIZA EL SNMP y GUARDAR LOS CAMPOS EN UN ARREGLO
 * PARA FACILITAR FUTURAS LECTURAS
@@ -159,7 +179,6 @@ void recibir_desde_arduino(string ip_temp, int index){
   strcpy(cadena4,"null");
 
   //DESCOMENTAR AL PROBAR EL VALOR CORRECTO ES 1.3.6.1.2.1.118.1.1.101.1
-  /* TODO: DESCOMENTAR*/
   sprintf(cmd,"snmpget -v 2c -c solarlex %s  1.3.6.1.2.1.118.1.1.101.1 | tee %sdatalog.txt", ip, directorio_principal.c_str());
   string salida_snmp = get_resultado_comando_linux(string(cmd));
 
@@ -172,14 +191,7 @@ void recibir_desde_arduino(string ip_temp, int index){
 
 
   //TODO: BORRAR AL TERMINAR LAS PRUEBAS
-  /*
-  codigo_desde_arduino = equipos_array[index].getNombre() + ",03,01485,01084,01085,1.43,222,0\"";
-  int random = rand() % 20 + 0;
-  ostringstream oss;
-  oss<< random;
-  codigo_desde_arduino = equipos_array[index].getNombre() + ",03,01485,01084,01085,1.43,"+oss.str()+",0\"";
-  oss.clear();
-  */
+  //codigo_desde_arduino = equipos_array[index].getNombre() + ",1,2,3,4,5,0,7";
   //FIN PRUEBAS
 
 
@@ -188,26 +200,51 @@ void recibir_desde_arduino(string ip_temp, int index){
 
   //LECTURA SNMP CORRECTA DEBE SEPARAR LOS CAMPOS EN UN ARRAY GLOBAL PARA FACIL LECTURA
   }else{
-
-    char linea_array[300];
-    char *linea_pointer;
-    strcpy(linea_array, codigo_desde_arduino.c_str());
-    linea_pointer = strtok(linea_array, ",");
-    cantidad_campos_lectura = 0;
-
-    while(linea_pointer != NULL){
-      campos_leidos_array[cantidad_campos_lectura] = linea_pointer;
-      linea_pointer = strtok(NULL, ",");
-      cantidad_campos_lectura++;
+    char *linea_aux = new char[200];
+    strcpy(linea_aux, codigo_desde_arduino.c_str());
+    strtok(linea_aux, ",");
+    int campo_cont = 0;
+    while(linea_aux != NULL){
+      campos_leidos_array[campo_cont] = linea_aux;
+      linea_aux = strtok(NULL, ",");
+      campo_cont++;
     }
-    delete [] linea_pointer; //LIBERAR MEMORIA SI NO PROVOCA AUMENTO DE MEMORIA RAM
-    mensaje_consola("LECTURA DESDE ARDUINO = " + codigo_desde_arduino);
+    std::cout << "LECTURA DESDE ARUIDNO = " << codigo_desde_arduino << std::endl;
+
+    //SOLO PARA CATEGORIA CAMION-FUEL
+    if(equipos_array[index].getCategoria() == "9"){
+
+      /* TODO: PRUEBAS */
+      /*
+      int random = rand() % 5 + 0;
+      ostringstream oss;
+      oss<< random;
+      campos_leidos_array[6] = oss.str();
+      std::cout << "RANDOM = " << random << std::endl;
+      */
+      //FIN PRUEBA
+      
+
+      if( is_number(campos_leidos_array[6]) && strcmp(campos_leidos_array[6].c_str(), "0") == 0){
+        //std::cout << "RANDOM " << equipos_array[index].getNombre() << " HOROMETRO ES CERO ACTUAL = " << campos_leidos_array[6] << " ANTERIOR = " << horometros_anteriores[index] << std::endl;
+        actualizar_horometro_fuel(index);
+        horometros_anteriores[index] = "0";
+      }else{
+        //std::cout << "RANDOM HOROMETRO " << equipos_array[index].getNombre() << " == "  << campos_leidos_array[6] << std::endl;
+        horometros_anteriores[index] = campos_leidos_array[6];
+      }
+
+    }
+
   }
+
+
+
 
 }
 
-void comprobar_alertas(int index){
-  mensaje_consola("COMPROBANDO ALERTAS CONFIGURADAS..." + equipos_array[index].getNombre());
+void comprobar_alertas(string cp_perfil_cont_id){
+  mensaje_consola("COMPROBANDO ALERTAS CONFIGURADAS..." + cp_perfil_cont_id);
   string cp_nombre_alarma = "";
 
   MYSQL *conn = conectar_mysql();
@@ -215,16 +252,17 @@ void comprobar_alertas(int index){
   MYSQL_ROW row;
 
   char consulta[1024];
-  sprintf(consulta,"select cp_nombre, cp_max, cp_min from tb_alert_cfg where cp_perfil_cont_id = '%s'", equipos_array[index].getId().c_str() );
+  sprintf(consulta,"select cp_nombre from tb_alert_cfg where cp_perfil_cont_id = '%s'", cp_perfil_cont_id.c_str() );
   mysql_query(conn,consulta);
   res = mysql_use_result(conn);
 
   while( (row = mysql_fetch_row(res)) ){
-    std::cout << "alertas - " << row[0] << ", " << row[1] << std::endl;
+    std::cout << "alertas - " << row[0] << std::endl;
   }
 
   mysql_free_result(res);
   mysql_close(conn);
+
 }
 
 
@@ -277,9 +315,6 @@ void escribir_log(string archivo, time_t hora  ){
 
 void guardar_datos(int index){
 
-    string cp_id        = equipos_array[index].getId();
-    string categoria_id = equipos_array[index].getCategoria();
-
     //************************************
     //GUARDAR HORA LINUX
     time_t hora = time(NULL);
@@ -291,26 +326,45 @@ void guardar_datos(int index){
     sprintf(hactual,h.c_str());
     //FIN HORA LINUX ********************
 
+    //cout << "entro a guardar datos" << endl;
+
+    string linea_t = codigo_desde_arduino;
+
+    char linea2[512];
+    char consulta[1024];
+    char idequipo2[1024];
+    char  *linea;
+    strcpy(linea2, linea_t.c_str());
+    linea = linea2;
+
+    // codigo_desde_arduino;
+    char *idequipo = strtok(linea,",");
+    strcpy(idequipo2, idequipo);
+	  char *nombre_equipo = strtok(idequipo2,"\"");
+
+	  string cp_id        = equipos_array[index].getId(); //obtener_campo_equipo(nombre_equipo, "cp_id");
+    string categoria_id = equipos_array[index].getCategoria();  //TODO: eliminar ... obtener_campo_equipo(nombre_equipo, "cp_cat_id");
+
 
     //**************************************************************************
     //CREAR INSERT DINAMICO POR CATEGORIA
     //**************************************************************************
     char select_categorias[200];
-    char insert_colection [1000] = "INSERT INTO tb_colection (cp_id_perfil_cont, cp_oid, ";
-
     sprintf(select_categorias, "select campo, tipo_campo from tb_campos_lectura where categorias_id = %s order by orden_lectura_arduino " , categoria_id.c_str() );
+
+    char insert_colection [1000] = "INSERT INTO tb_colection (cp_id_perfil_cont, cp_oid, ";
 
     MYSQL * conn_categ = conectar_mysql();
     mysql_query(conn_categ, select_categorias);
     MYSQL_RES * res = mysql_store_result(conn_categ);
 
-    int cantidad_campos_configurados = mysql_num_rows(res);
+    int cantidad_campos = mysql_num_rows(res);
 
     int i = 1;
     while(MYSQL_ROW row = mysql_fetch_row(res)){
       strcat(insert_colection, row[0]);
-      if(i < cantidad_campos_configurados)
-        strcat(insert_colection, ", ");
+      if(i < cantidad_campos)
+        strcat(insert_colection, ",");
       i++;
     }
 
@@ -326,24 +380,32 @@ void guardar_datos(int index){
     strcat(insert_colection, hactual );
     strcat(insert_colection, "',");
 
-    i = 0;
-    while (i < cantidad_campos_lectura){
-      strcat(insert_colection, "'");
-      strcat(insert_colection, campos_leidos_array[i].c_str() );
-      strcat(insert_colection, "'");
-      if( (i+1) < cantidad_campos_configurados)
-        strcat(insert_colection, ",");
+    char * linea_split;
+    strcpy(linea_split, linea_t.c_str());
+    linea_split  = strtok(linea_split,",");
+    //std::cout << "/* message */ ==== " << linea_t << std::endl;
 
-      i++;
+    int cantidad_campos_arduino = 1;
+    while (linea_split != NULL){
+      if(cantidad_campos_arduino>0){
+        strcat(insert_colection, "'");
+        strcat(insert_colection, linea_split );
+        strcat(insert_colection, "'");
+        if(cantidad_campos_arduino < cantidad_campos)
+          strcat(insert_colection, ",");
+      }
+      linea_split = strtok (NULL, ",");
+      cantidad_campos_arduino++;
     }
+    cantidad_campos_arduino--; //SOLO TENGO QUE CONTAR LOS CAMPOS DE ARDUINO MENU EL NOMBRE DEL EQUIPO: EJ, MIM02
     strcat(insert_colection, " ) "); //CERRAR INSERT
 
     mysql_close(conn_categ);
     mysql_free_result(res);
 
-    //std::cout << insert_colection << cantidad_campos_configurados  << "-" << cantidad_campos_lectura << std::endl;
+    //std::cout << insert_colection << cantidad_campos  << "-" << cantidad_campos_arduino << std::endl;
 
-    if(cantidad_campos_lectura == cantidad_campos_configurados ){
+    if(cantidad_campos_arduino == cantidad_campos ){
       //REALIZAR INSERT
       MYSQL *conn = conectar_mysql();
       mysql_query(conn, insert_colection);
@@ -352,7 +414,7 @@ void guardar_datos(int index){
       escribir_log("lectura.txt", hora);
 
     }else{
-      std::cout << "INCONSISTENCIA CON CAMPOS EN " << equipos_array[index].getNombre() << " [" <<  cantidad_campos_lectura  << " LEIDOS] [" <<  cantidad_campos_configurados << " CONFIGURADOS EN BD]" << std::endl;
+      std::cout << "INCONSISTENCIA CON CAMPOS CONFIGURADOS EN LA CATEGORIA (" <<  cantidad_campos << " campos registrados en BD)" << std::endl;
     }
 }
 
@@ -391,6 +453,7 @@ void set_configuracion_xml(string path_xml){
   database = obtener_valor_xml_conf(path_xml, "mysql->esquema");
 
   directorio_principal = obtener_valor_xml_conf(path_xml, "archivos->pathPrincipal");
+  directorio_host_cfg  = obtener_valor_xml_conf(path_xml, "archivos->hostcfg");
   configuracion_delay  = obtener_valor_xml_conf(path_xml, "archivos->delay");
 }
 
@@ -411,7 +474,7 @@ int main() {
       for(int index = 0; index < equipos; index++){
         recibir_desde_arduino(equipos_array[index].getIp(), index);
         if(codigo_desde_arduino != "null" && strlen(codigo_desde_arduino.c_str()) > 5){
-          //mensaje_consola("INICIO GUARDADO DE DATOS ... " + equipos_array[index].getNombre() + " - " + equipos_array[index].getIp());
+          mensaje_consola("INICIO GUARDADO DE DATOS ... " + equipos_array[index].getNombre() + " - " + equipos_array[index].getIp());
           guardar_datos(index);
         }
       }
