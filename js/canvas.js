@@ -605,14 +605,14 @@
            var cxt=iniciaCanvas("porcentaje_com");
            //deg = 1;
            var numero = deg;
-           console.log(deg);
+           //console.log(deg);
            deg = deg / 100;
-           console.log(deg);
+           //console.log(deg);
            var maximo = 150;
            var difirencia = Math.round(deg*maximo);
-           console.log(difirencia);
+           //console.log(difirencia);
            var dif_final = maximo - difirencia;
-           console.log(dif_final);
+           //console.log(dif_final);
            
           if (cxt) {
              var dif = parseInt(difirencia);
@@ -631,17 +631,17 @@
            
             cxt.beginPath(); //iniciar ruta
             //var numero = parseInt(deg);
-            console.log(numero);
+            //console.log(numero);
             if(numero > 40){
-              console.log(1);
+              //console.log(1);
               cxt.fillStyle="#00AAB5";//color de línea
             }
             if(numero >= 30 && numero <= 40){
-              console.log(2);
+             // console.log(2);
               cxt.fillStyle="#EBC134";//color de línea
             }
             if(numero < 30){
-              console.log(3);
+             // console.log(3);
               cxt.fillStyle="#BF0411";//color de línea
             }
              

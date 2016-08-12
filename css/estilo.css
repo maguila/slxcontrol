@@ -212,6 +212,12 @@ body{
 }
 .estado-camion-l{
 	margin-left: -12px !important;
+	/*margin-top: 60px;*/
+}
+#camionesRojos{
+	margin-top: 60px;
+}
+#camionesAmarillos{
 	margin-top: 60px;
 }
 .espacio-ecam-l{
@@ -240,10 +246,13 @@ body{
 	margin-top: 11px;
 	position: absolute;
 }
+.img-estado-cam{
+	margin-left: 10px;
+}
 
 .estado-camion-m{
 	margin-left: 0px !important;
-	margin-top: 60px;
+	/*margin-top: 60px;*/
 	cursor: pointer;
 }
 .espacio-ecam-m{
@@ -255,6 +264,7 @@ body{
 	height: 69px;
 	border-radius: 10px;
 	padding-top: 10px;
+
 }
 .img-camion-m{
 	width: 97px;
@@ -264,10 +274,10 @@ body{
 }
 .num-cam-m{
 	color: black;
-	font-size: 15px;7-07-2016 04:55:56
+	font-size: 15px;
 }
 .div-num-cam-m{
-	margin-left: 23px;
+	margin-left: 20px;
 	margin-top: 5px;
 	position: absolute;
 }
@@ -294,11 +304,15 @@ body{
 	margin-left: 10px;
 	font-family: "futura-book", sans-serif; font-weight: 100;
 }
+.label-span-camion{
+	margin-top: 20px;
+}
 .label-camion{
 	font-size: 41px;
 	color: #0095AA;
 	letter-spacing: 4px;
 }
+
 .label-ide-camion{
 	font-size: 74px;
 	color:white;
@@ -317,15 +331,55 @@ body{
 	text-align: center;
 	margin-left: -25px;
 }
-
-/*.animate-bat{
-	height: 200px;
+.btn-comentario-camion{
+	color:white;
+	font-size: 20px;
+	background-color: #444242;
+	width: 200px;
+	height: 40px;
+	padding: 6px;
+	text-align: center;
+	border-radius: 5px;
+	border: 0px !important;
+}
+.btn-coment{
+	float: left;
+	font-size: 25px;
+	margin-top: -7px;
+	margin-left: 10px;
+}
+.btn-agregar-coment{
+	background-color: #CE6B00 !important;
+	border: 0px;
+}
+.btn-guardar-new-coment{
+	float: right;
+	margin-top: 20px;
+}
+.espacio-comentario{
+	margin-top: 30px;
+	width: 330px;
+	height: 410px;
+	background-color: #373333;
+	border-radius: 7px;
+	padding-top: 20px;
+	padding-left: 20px;
+	padding-right: 20px;
+	overflow: auto;
+}
+.label-btn-coment{
+	float: left;
+	margin-left: 20px;
+	font-family: "futura-book", sans-serif; font-weight: 100;
+	font-size: 20px;
+}
+.coment-linea{
 	color: white;
-	width: 300px;
-	background-color: red;
-	margin-bottom: 200px;
-	height: 25px;
-}*/
+	margin-bottom: 20px;
+}
+.agregar-coment-camion{
+	display: none;
+}
 .espacio_linea_combust{
 	margin-top: 19px;
 	/*height: 300px;*/
@@ -335,6 +389,22 @@ body{
 	width: 350px;
 	z-index: -1;
 	position: absolute;
+}
+.leyenda-bidon{
+	color: white;
+	margin-top: 310px;
+	font-size: 29px;
+	font-family: "futura-book", sans-serif; font-weight: 100;
+	letter-spacing: 4px;
+}
+.btn-comentario-camion:hover{
+	background-color: #CE6B00;
+	cursor: pointer;
+}
+.anuncio-camion{
+	color:  #CE6B00;
+	font-size: 20px;
+	padding-top: 10px;
 }
 /**********  Footer  ********************************************/
 #footer{

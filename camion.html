@@ -26,18 +26,18 @@
       <div class="panel-idcamion">
         <div class="panel-anuncios">
           <div class="container">
-
+            <marquee direction="left" scrollamount="15"><div class="anuncio-camion"></div></marquee>
           </div>
         </div>
         <div class="container">
 
           <div class="panel-detalle-camion">
-            <div class="col-lg-4 izq-pag-cam">
+            <div class="col-lg-3 izq-pag-cam">
               <div class="img-estado-cam">
                 <img src="img/iconos-menu/icon-camion-a.png" class="img-estado-cm">
               </div>
               <div class="bloque-detalle-camion">
-                <div><span class="label-camion">CAMIÓN</span></div>
+                <div class="label-span-camion"><span class="label-camion">CAMIÓN</span></div>
                 <div><span class="label-ide-camion" id="id_mina">  </span></div>
                 <div><span class="label-horometro-camion" id="horometro">  </span></div>
                 <div>
@@ -53,12 +53,32 @@
                 </div>
               </div>
             </div>
-             <div class="col-lg-4 centro-pag-cam">
+             <div class="col-lg-5 centro-pag-cam">
+                <button class="btn-comentario-camion">
+                  <div class="btn-coment">+</div>
+                  <div class="label-btn-coment">Agregar nota</div>
+                </button>
+                <div class="espacio-comentario">
+                  <div class="limite-espacio-coment">
+
+                  </div>
+                  <div class="agregar-coment-camion">
+                      <div class="espacio-new-coment">
+                        <div>
+                          <textarea class="form-control" rows="15" id="comentario-final"></textarea>
+                        </div>
+                      </div>
+                      <div class="btn-guardar-new-coment">
+                        <button type="button" class="btn btn-danger btn-cancel-coment">Cancelar</button>
+                        <button type="button" class="btn btn-success btn-agregar-coment">Agregar</button>
+                      </div>
+                  </div>
+                </div>
              </div>
              <div class="col-lg-4 der-pag-cam">
               <div>
                 <div>
-                  <img src="img/iconos-menu/bidon-grande.png">
+                  <img src="img/iconos-menu/bidon-grande.png" class="img-responsive">
                   <div class="porcentaje_camion">
                     <span id="label_porcentaje_camion"></span>
                   </div>
@@ -67,6 +87,9 @@
                      <canvas  id="porcentaje_com" class="eletemto_porcentaje"></canvas>
                   </div>
 
+                </div>
+                <div class="leyenda-bidon">
+                  <span>Nivel de Combustible</span>
                 </div>
               </div>
              </div>

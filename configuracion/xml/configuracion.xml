@@ -4,7 +4,7 @@
     <host>localhost</host>
     <esquema>slxcontrol</esquema>
     <usuario>root</usuario>
-    <password>solarlex</password>
+    <password>mysql</password>
   </mysql>
   <archivos>
     <pathPrincipal>/var/lib/slx/c++/</pathPrincipal>

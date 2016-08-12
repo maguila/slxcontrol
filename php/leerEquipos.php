@@ -25,6 +25,29 @@
           echo json_encode($row);
         }
       break;
+      case 'LEER_COMENT':
+        $result = get_coment($equipo_id);
+        //RETORNA JSON
+        foreach ($result as $row) {
+          $rows[] = $row;
+        }
+        echo json_encode($rows);
+      break;
+      case 'AGREGAR_COMENT':
+        //
+        session_start();
+        if($_SESSION){
+
+          $iduser = $_SESSION['ID______USR'];
+          $coment = $_POST['coment'];
+          set_coment($iduser,$equipo_id,$coment);
+          echo 1;
+         }
+       else{
+          echo 0;
+       }
+        //echo 1;
+      break;
     }
 
 
@@ -109,9 +132,24 @@
     }
     function get_data_equipo($id_equipo){
       $conn = crearConexion();
-      $sql_ultima_lectura = "SELECT cp_campo4,cp_campo7 FROM tb_colection where cp_id_perfil_cont= '".$id_equipo."' and cp_oid = (select max(cp_oid) from tb_colection where cp_id_perfil_cont= '".$id_equipo."' ) ";
+      $sql_ultima_lectura = "SELECT cp_oid,cp_campo4,cp_campo7 FROM tb_colection where cp_id_perfil_cont= '".$id_equipo."' and cp_oid = (select max(cp_oid) from tb_colection where cp_id_perfil_cont= '".$id_equipo."' ) ";
           //print_r($sql_ultima_lectura);
       $result = $conn->query($sql_ultima_lectura);
       return $result;
+    }
+    function get_coment($equipo_id){
+      $conn = crearConexion();
+      $result = $conn->query("SELECT * FROM tb_comentarios where cp_perfil_id = '".$equipo_id."' ORDER BY tb_comentarios.cp_usuario_id ASC");
+      return $result;
+    }
+    function set_coment($iduser,$idequipo,$coment){
+      $conn = crearConexion();
+      $fecha_actual = time();
+
+      $query = "INSERT INTO tb_comentarios (cp_id, cp_perfil_id, cp_usuario_id, cp_oid, cp_coment) VALUES (NULL, '$idequipo', '$iduser' ,'$fecha_actual', '$coment')";
+
+      $result = $conn->query($query);
+      //return $result;
+
     }
 ?>

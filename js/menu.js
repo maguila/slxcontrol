@@ -49,12 +49,13 @@
 	    $('#footer').html(rendered);
 
 	    $(".icn-home").click(function(e){
-	    	var url = "index2.html"; 
+	    	var url = "index3.html"; 
       		$(location).attr('href',url);
 	    });
 	    var estado = getCategoria();
+	    $(".iuser").css("display","none");
 	    if(estado){
-	    	$(".iuser").css("display","none");
+	    	
 	    	$(".menu-footer").css("display","block");
 	    	if(str.length == 2){
 	    		$(".icon-informe").click(function(){
