@@ -173,7 +173,7 @@ body{
 	background-color: #E6B54A ;
 	font-size: 18px;
 	border-radius: 5px;
-
+	
 }
 .numero-cam-m{
 	margin-top: 8px;
@@ -223,7 +223,6 @@ body{
 	height: 123px;
 	border-radius: 10px;
 	padding-top: 13px;
-	cursor: pointer;
 }
 .img-camion-l{
 	/*width: 175px;*/
@@ -233,7 +232,7 @@ body{
 }
 .num-cam-l{
 	color: white;
-	font-size: 22px;
+	font-size: 25px;
 }
 .div-num-cam-l{
 	margin-left: 42px;
@@ -244,7 +243,6 @@ body{
 .estado-camion-m{
 	margin-left: 0px !important;
 	margin-top: 60px;
-	cursor: pointer;
 }
 .espacio-ecam-m{
 	background-color: #332F2E;
@@ -264,7 +262,7 @@ body{
 }
 .num-cam-m{
 	color: black;
-	font-size: 15px;7-07-2016 04:55:56
+	font-size: 15px;
 }
 .div-num-cam-m{
 	margin-left: 23px;
@@ -272,12 +270,12 @@ body{
 	position: absolute;
 }
 
-/*.panel-camiones{
+.panel-camiones{
 	display: none;
 }
-/*#sub-menu2{
+#sub-menu2{
 	display: none;
-}*/
+}
 
 .panel-anuncios{
 	height: 45px;
@@ -299,7 +297,7 @@ body{
   height: 72px;
   background-color: #3B3837;
   color: white;
-
+  
 }
 .foo-left{
 	padding-left: 0px;
