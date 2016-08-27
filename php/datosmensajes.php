@@ -9,12 +9,13 @@
 			$lsnom = $_POST["lsnom"];
 			$mysqli = crearConexion();
 
-			$query = "SELECT * FROM tb_perfil_cont_cfg WHERE cp_nombre = '".$lsnom."'";
+			$query = "SELECT * FROM tb_perfil_cont_cfg WHERE id_mina = '".$lsnom."'";
 			//print_r($query);
 			$result = $mysqli->query($query);	
 			$row = $result->fetch_array(MYSQLI_ASSOC);
 			//print_r($row);
 			$idequipo = $row['cp_id'];
+			print_r($idequipo);
 
 		    $query = "SELECT * FROM tb_alert_cfg WHERE cp_perfil_cont_id = $idequipo";
 			$result = $mysqli->query($query);

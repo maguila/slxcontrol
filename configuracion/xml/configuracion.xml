@@ -4,10 +4,10 @@
     <host>localhost</host>
     <esquema>slxcontrol</esquema>
     <usuario>root</usuario>
-    <password>mysql</password>
+    <password>solarlex</password>
   </mysql>
   <archivos>
-    <pathPrincipal>/var/www/html/slxcontrol/configuracion/c++/</pathPrincipal>
-    <delay>1</delay>
+    <pathPrincipal>/var/lib/slx/c++/</pathPrincipal>
+    <delay>10</delay>
   </archivos>
 </conf>

@@ -17,12 +17,6 @@
      <link href="css/font.css" rel="stylesheet">
      <link rel="stylesheet" href="css/estilo.css" type="text/css">
 
-     <style>
-        .panel-idcamion{
-          color: #FFFFFF;
-        }
-
-     </style>
 
   </head>
   <body>
@@ -31,7 +25,7 @@
       <div class="panel-idcamion">
         <div class="panel-anuncios">
           <div class="container">
-
+            <marquee direction="left" scrollamount="15"><div class="anuncio-camion"></div></marquee>
           </div>
         </div>
         <div class="container">
@@ -39,12 +33,65 @@
           <div class="panel-detalle-camion">
             <div class="col-lg-3 izq-pag-cam">
               <div class="img-estado-cam">
-                <img src="img/iconos-menu/icon-camion-b.png" class="img-estado-cm">
+                <img src="img/iconos-menu/icon-camion-a.png" class="img-estado-cm">
               </div>
-              <h1 id="nombre_camion"></h1>
-              <h2 id="id_mina">  </h2>
-              <h2 id="horometro">  </h2>
+              <div class="bloque-detalle-camion">  
+                <div class="label-span-camion"><span class="label-camion">CAMIÓN</span></div>
+                <div><span class="label-ide-camion" id="id_mina">  </span></div>
+                <div><span class="label-horometro-camion" id="horometro">  </span></div>
+                <div>
+                  <div><span class="label-horometro-camion">HORÓMETRO</span></div>
+                  <div>
+                    <img src="img/iconos-menu/numeros/0.png" id="cam-numero-6">
+                    <img src="img/iconos-menu/numeros/0.png" id="cam-numero-5">
+                    <img src="img/iconos-menu/numeros/0.png" id="cam-numero-4">
+                    <img src="img/iconos-menu/numeros/0.png" id="cam-numero-3">
+                    <img src="img/iconos-menu/numeros/0.png" id="cam-numero-2">
+                    <img src="img/iconos-menu/numeros/0.png" id="cam-numero-1">
+                  </div>
+                </div>
+              </div>
             </div>
+             <div class="col-lg-5 centro-pag-cam">
+                <button class="btn-comentario-camion">
+                  <div class="btn-coment">+</div>
+                  <div class="label-btn-coment">Agregar nota</div>
+                </button>
+                <div class="espacio-comentario">
+                  <div class="limite-espacio-coment">
+                    
+                  </div>
+                  <div class="agregar-coment-camion">
+                      <div class="espacio-new-coment">
+                        <div>
+                          <textarea class="form-control" rows="15" id="comentario-final"></textarea>
+                        </div>
+                      </div>
+                      <div class="btn-guardar-new-coment">
+                        <button type="button" class="btn btn-danger btn-cancel-coment">Cancelar</button>
+                        <button type="button" class="btn btn-success btn-agregar-coment">Agregar</button>
+                      </div>
+                  </div>
+                </div>
+             </div>
+             <div class="col-lg-4 der-pag-cam">
+              <div>
+                <div>
+                  <img src="img/iconos-menu/bidon-grande.png">
+                  <div class="porcentaje_camion">
+                    <span id="label_porcentaje_camion"></span>
+                  </div>
+                  <div class="espacio_linea_combust">
+                    <!--<div class="animate-bat"></div>-->
+                     <canvas  id="porcentaje_com" class="eletemto_porcentaje"></canvas>
+                  </div>
+
+                </div>  
+                <div class="leyenda-bidon">
+                  <span>Nivel de Combustible</span>
+                </div>
+              </div>
+             </div>
           </div>
         </div>
       </div>
@@ -55,57 +102,14 @@
 
       </footer>
 
-      <div id="aux_camiones" style="display: none;"></div>
-
 
     <script src="js/jquery-2.1.4.js"></script>
     <script src="js/bootstrap.js"></script>
     <script src="js/main.js"></script>
     <script src="js/mustache.js"></script>
     <script src="js/menu.js"></script>
-    <script src="js/index3.js"></script>
-
-
-    <script>
-
-
-     $(function(){
-
-       $.ajax({
-         url: "php/leerEquipos.php",
-         data: {"accion" : "TRAER_EQUIPO", "equipo" : getUrlParameter("equipo") },
-         method: "POST",
-         success: function(response){
-           var json = $.parseJSON(response);
-           $("#nombre_camion").html("CAMION "+json.cp_nombre);
-           $("#id_mina").html(json.id_mina);
-           $("#horometro").html(json.cp_horometro_historico);
-         }
-       });
-
-
-
-       function getUrlParameter(sParam) {
-           var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-               sURLVariables = sPageURL.split('&'),
-               sParameterName,
-               i;
-
-           for (i = 0; i < sURLVariables.length; i++) {
-               sParameterName = sURLVariables[i].split('=');
-
-               if (sParameterName[0] === sParam) {
-                   return sParameterName[1] === undefined ? true : sParameterName[1];
-               }
-           }
-       };
-
-     });
-
-
-
-    </script>
-
+    <script src="js/camion.js"></script>
+    <script src="js/canvas.js"></script>
 
 
   </html>

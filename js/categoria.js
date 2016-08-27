@@ -36,11 +36,13 @@
 				var j = i-1;
 				if(i<=num){
 					var datcat = datos_cat[j];
+					var nomfiltrado_tem = datcat.split(" - ");
+					var nom = nomfiltrado_tem[1];
 					var snom = datcat.replace(/ /g,'-');
 					var scat = lscat.replace(/ /g,'-');
 					var templedata = {
 						snom: snom,
-						nom: datos_cat[j],
+						nom: nom,
 						scat: scat,
 						id: j
 					}

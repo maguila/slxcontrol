@@ -999,12 +999,13 @@
 
 			$mysqli = crearConexion();
 
-			$query = "SELECT * FROM tb_perfil_cont_cfg WHERE cp_nombre = '".$cont."'";
+			$query = "SELECT * FROM tb_perfil_cont_cfg WHERE id_mina = '".$cont."'";
 			//print_r($query);
 			$result = $mysqli->query($query);	
 			$row = $result->fetch_array(MYSQLI_ASSOC);
 			//print_r($row);
 			$idequipo = $row['cp_id'];
+			//print_r($idequipo);
 			//print_r($fecha_inicial);
 			//print_r($fecha_final);
 		    $query = "SELECT * FROM tb_colection WHERE cp_id_perfil_cont = '".$idequipo."' AND cp_oid BETWEEN '".$fecha_inicial."' AND '".$fecha_final."'";
@@ -1036,10 +1037,13 @@
 						else{
 							$fila['temp_alta'] = floatval($row['TEMPSALADEQ']);
 						}*/
-						$fila['Vb'] = floatval($row['cp_volt2']);							
+						$fila['Vb'] = floatval($row['cp_campo6']);							
 						/*$fila['temp_baja'] = floatval($row['TEMPBAJADEQ']);*/
-						$fila['Ib'] = floatval($row['cp_amp2']);
-						$fila['Il'] = floatval($row['cp_amp3']);
+						$fila['Ib'] = floatval($row['cp_campo5']);
+						$fila['Il'] = floatval($row['cp_campo7']);
+						if($fila['Il'] < 0){
+							$fila['Il'] = $fila['Il'] * -1;
+						}
 						//$fila['lim_temp'] = 28;
 						/*if($row['LIMTALTADEQ'] == null){
 							$fila['lim_temp'] = 28;
@@ -1092,9 +1096,14 @@
 						}*/
 						//$fila_temp['temp_alta'] = 28;
 						$fila_temp['fecha'] = strftime("%H:%M",$fecha_tem_2);
-						$fila_temp['Vb'] = floatval($row['cp_volt2']);
-						$fila_temp['Ib'] = floatval($row['cp_amp2']);
-						$fila_temp['Il'] = floatval($row['cp_amp3']);
+						$fila_temp['Vb'] = floatval($row['cp_campo6']);
+						$fila_temp['Ib'] = floatval($row['cp_campo5']);
+						$fila_temp['Il'] = floatval($row['cp_campo7']);
+
+						$fila_temp['Il'] = floatval($row['cp_campo7']);
+						if($fila_temp['Il'] < 0){
+							$fila_temp['Il'] = $fila_temp['Il'] * -1;
+						}
 						/*$fila_temp['temp_baja'] = floatval($row['TEMPBAJADEQ']);*/
 						//$fila_temp['temp_control'] = 20;
 					/*	if($row['LIMTALTADEQ'] == null){

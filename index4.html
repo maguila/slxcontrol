@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -6,24 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
- 
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    
+
     <!--<link rel="shortcut icon" href="image/favicon2.ico">-->
-    <link rel="icon" type="image/png" href="img/favicon.png" /> 
+    <link rel="icon" type="image/png" href="img/favicon.png" />
 
-    <title>SLXcontrol</title>
+    <title>LEXcontrol</title>
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.css" rel="stylesheet">
+     <link href="css/bootstrap.css" rel="stylesheet">
      <link href="css/font.css" rel="stylesheet">
+     <link rel="stylesheet" href="css/estilo.css" type="text/css">
+     <link rel="stylesheet" href="css/style_movil.css" type="text/css"/>
 
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="../../assets/js/html5shiv.js"></script>
-      <script src="../../assets/js/respond.min.js"></script>
-    <![endif]-->
-    <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="css/estilo.css" type="text/css"/>
 
   </head>
   <body>
@@ -38,15 +32,14 @@
                 <label id="fuel-cli">COMBUSTIBLE <BR>EN CAMIONES</label>
               </div>
             </div>
-            <div class="col-lg-6 rs">
+            <div class="col-lg-6 rs camionesAzules_cursor" id="camionesAzules">
               <div class="col-lg-3">
                 <img src="img/iconos-menu/camion-a.png" class="cliente-foto">
               </div>
               <div class="col-lg-9 rs2">
-                <div class="numero-cam-h"><span class="cam-h">0</span></div>
-                <div class="lgd-cam-h"><span class="cam-h-leg">Camiones con mas de 30% de combustible</span></div>
+                <div class="numero-cam-h"><span id="camiones-h" class="cam-h">0</span></div>
+                <div class="lgd-cam-h"><span class="cam-h-leg">Camiones con mas de 40% de combustible</span></div>
               </div>
-
             </div>
          </div>
       </div>
@@ -54,71 +47,45 @@
         <div class="container">
           <div class="col-lg-6">
             <div class="leng-estado">
-              <div class="numero-cam-l"><span class="cam-l">0</span></div>
-              <div class="lgd-cam-l"><span class="cam-l-leg">Camiones con menos de 10% de combustible</span></div>
+              <div class="numero-cam-l"><span class="cam-l">  <span id="camiones-low"></span> </span></div>
+              <div class="lgd-cam-l"><span class="cam-l-leg">Camiones con menos de 30% de combustible</span></div>
             </div>
-            <div class="estado-camion-l">
-              <div class="col-lg-6 espacio-ecam-l">
-                <div class="col-lg-3"><img src="img/iconos-menu/bidon-b3.png" class="img-bidon-l"></div>
-                <div class="col-lg-9">
-                  <div class="div-num-cam-l"><span class="num-cam-l">768</span></div>
-                  <img src="img/iconos-menu/camion-c.png" class="img-camion-l">
-                </div>
-              </div> 
-            </div>
+
+
+            <div id="camionesRojos" class="row tam-max-cam-red"></div>
+
+
           </div>
           <div class="col-lg-6">
             <div class="leng-estado">
-              <div class="numero-cam-m"><span class="cam-m">0</span></div>
-              <div class="lgd-cam-m"><span class="cam-m-leg">Camiones con el 10% y 30% de combustible</span></div>
+              <div class="numero-cam-m"><span id="camiones-med" class="cam-m">0</span></div>
+              <div class="lgd-cam-m"><span class="cam-m-leg">Camiones entre 30% y 40% de combustible</span></div>
             </div>
-            <div class="estado-camion-m">
-              <div class="col-lg-4 espacio-ecam-m">
-                <div class="col-lg-3"><img src="img/iconos-menu/bidon-a3.png" class="img-bidon-m"></div>
-                <div class="col-lg-9">
-                  <div class="div-num-cam-m"><span class="num-cam-m">768</span></div>
-                  <img src="img/iconos-menu/camion-b2.png" class="img-camion-m">
-                </div>
-              </div>
-            </div>
+
+
+            <div id="camionesAmarillos" class="row tam-max-cam-yel"></div>
+
+
           </div>
         </div>
       </div>
-      <div class="panel-idcamion">
-        <div class="panel-anuncios">
-          <div class="container">
-            
-          </div>
-        </div>
-        <div class="container">
-         
-          <div class="panel-detalle-camion">
-            <div class="col-lg-3 izq-pag-cam">
-              <div class="img-estado-cam">
-                <img src="img/iconos-menu/icon-camion-b.png" class="img-estado-cm">
-              </div>
-              <div class="num-estado-cam">
-                
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
+
   </body>
 
       <footer id="footer">
-        
+
       </footer>
- 
+
+      <div id="aux_camiones" style="display: none;"></div>
+
 
     <script src="js/jquery-2.1.4.js"></script>
     <script src="js/bootstrap.js"></script>
     <script src="js/main.js"></script>
     <script src="js/mustache.js"></script>
     <script src="js/menu.js"></script>
-    <script src="js/index3.js"></script>
+    <script src="js/index4.js"></script>
 
-   
+
 
   </html>

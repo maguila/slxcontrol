@@ -9,8 +9,14 @@
               var str = link.split("&");
               if(str.length == 1){
                 lsnom = str[0].replace("?cont=","");
+                var lsnomTemp = lsnom.split("---");
+                lsnom = lsnomTemp[0];
+                //console.log(lsnom);
                 snom = lsnom.replace(/-/g,' ');
                 $(".ide_eq_1").html(snom);
+                 var snomFinal = snom +" - "+lsnomTemp[1].replace(/-/g,' ');
+                console.log(snomFinal);
+                lsnom = snomFinal
                }
             }
 
@@ -25,7 +31,7 @@
               serverUrl: "http://192.168.0.106:3003"
             });*/
             
-            $("input[name='radioe_1']:radio").click(function(){
+           $("input[name='radioe_1']:radio").click(function(){
                var value = $('input:radio[name="radioe_1"]:checked').val();
                if(value == 2){
                 $(".in-fecha").css("display","block");
@@ -52,7 +58,7 @@
               $("#tblDatosmensaje").empty();
               $("#tblContUsu").empty();
 
-              var marcado = $("#mensajes_e"+ide).prop("checked");
+             /* var marcado = $("#mensajes_e"+ide).prop("checked");
               if(marcado == true){
                 datosmensajes(lsnom);
                 $("#ale_men").val(1);
@@ -61,7 +67,7 @@
               else{                
                 $("#info-men-al").css("display","none");
                 $("#ale_men").val(0);
-              }
+              }*/
 
               if( $("input[name='radioe_"+ide+"']:radio").is(':checked')) {
                 var estado_dias = $('input:radio[name="radioe_'+ide+'"]:checked').val();
@@ -151,6 +157,16 @@
             /*$("#imprime").click(function (){
               $("#panel_completo").print();
             })*/
+
+             $('.datepicker').datepicker({
+                format: "m/d/yyyy",
+                endDate: "today",
+                todayBtn: "linked",
+                language: "es",
+                autoclose: true,
+                todayHighlight: true
+            });
+
                 
       });
 
@@ -308,6 +324,8 @@
               };       
           }
         }); 
+
+
       }
       
       setInfo(true);
@@ -323,5 +341,5 @@
       }
 
 
-
+      
       

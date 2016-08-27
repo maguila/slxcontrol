@@ -1,0 +1,144 @@
+@media (max-width: 550px) {
+  .btn-block{
+    margin-left: 0px;
+  }
+
+  .container {
+      width: 100%;
+  }
+
+  #cuerpo{
+    width: 77%;
+  }
+
+  .menu-superior .sesion{
+    padding-left: 0px;
+  }
+
+  .menu-centro{
+    text-align: right;
+    margin-top: -40px;
+  }
+
+
+  #sub-menu .col-lg-6{
+    text-align: center;
+  }
+
+  #sub-menu .col-lg-1{
+    width: 60%;
+    margin-left: auto;
+  }
+
+  #sub-menu #cliente{
+    font-size: 32px;
+    text-align: center;
+  }
+
+  .col-lg-6{
+    float: left;
+    width: 100%;
+  }
+
+  .med-caja-cat .row{
+    text-align: center;
+  }
+
+
+  .caja-cat{
+    width: 100%;
+    margin-bottom: 25px;
+  }
+
+  #sub-menu2 {
+      margin-top: 25px;
+      text-align: center;
+      margin-bottom: 60px;
+  }
+
+  #sub-menu2 #fuel-cli{
+    font-size: 20px;
+  }
+
+  .panel-camiones{
+    text-align: -webkit-center;
+    margin-bottom: 100px;
+  }
+
+  .espacio-ecam-l {
+    height: 220px;
+  }
+
+  .numero-cam-h{
+    width: 100%;
+    margin-left: -20px;
+    margin-top: 30px;
+  }
+
+  .numero-cam-l{
+    width: 100%;
+  }
+
+  .numero-cam-m{
+    width: 100%;
+    margin-top: 70px;
+  }
+
+  .img-bidon-l{
+    padding-top: 0px;
+  }
+
+  .col-lg-1 .cliente-foto{
+    width: 50px;
+  }
+
+  .bnt-categoria{
+    text-align: center;
+  }
+
+  .pull-right{
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  #leyend-cat{
+    font-size: 20px;
+  }
+
+  #sub-menu-cat{
+    text-align: center;
+  }
+
+  .form-signin .col-lg-8{
+    margin-top: 20px;
+    left: 5%;
+  }
+
+  .form-signin .col-lg-4{
+    left: 5%;
+  }
+
+}
+
+
+@media (max-min: 552px and max-width: 1200px) {
+  .col-lg-6{
+    float: left;
+    width: 60%;
+  }
+
+  .med-caja-cat .row{
+    text-align: center;
+  }
+
+  .form-signin .col-lg-8{
+    margin-top: 20px;
+    left: 15%;
+  }
+
+  .form-signin .col-lg-4{
+    left: 15%;
+  }
+
+
+}

@@ -1,7 +1,7 @@
 <script id="categorias-inicio" type="text/template">
 	<div class="col-lg-3">
 	    <div class="bnt-categoria" id="btn-{{scat}}">
-	      <div class="col-lg-5"> 
+	      <div class="col-lg-5">
 	      <img src="img/iconos-menu/{{scat}}.png" class="img-icono-cat">
 	      </div>
 	      <div class="col-lg-5">

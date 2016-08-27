@@ -3,7 +3,7 @@ html{
 	min-height: 100%;
 }
 body{
- background-color: #2F2A28;
+ background-color: #2F2A29;
  margin-bottom: 72px;
 }
 
@@ -173,7 +173,7 @@ body{
 	background-color: #E6B54A ;
 	font-size: 18px;
 	border-radius: 5px;
-	
+
 }
 .numero-cam-m{
 	margin-top: 8px;
@@ -212,6 +212,12 @@ body{
 }
 .estado-camion-l{
 	margin-left: -12px !important;
+	/*margin-top: 60px;*/
+}
+#camionesRojos{
+	margin-top: 60px;
+}
+#camionesAmarillos{
 	margin-top: 60px;
 }
 .espacio-ecam-l{
@@ -223,6 +229,7 @@ body{
 	height: 123px;
 	border-radius: 10px;
 	padding-top: 13px;
+	cursor: pointer;
 }
 .img-camion-l{
 	/*width: 175px;*/
@@ -232,17 +239,21 @@ body{
 }
 .num-cam-l{
 	color: white;
-	font-size: 25px;
+	font-size: 22px;
 }
 .div-num-cam-l{
 	margin-left: 42px;
 	margin-top: 11px;
 	position: absolute;
 }
+.img-estado-cam{
+	margin-left: 10px;
+}
 
 .estado-camion-m{
 	margin-left: 0px !important;
-	margin-top: 60px;
+	/*margin-top: 60px;*/
+	cursor: pointer;
 }
 .espacio-ecam-m{
 	background-color: #332F2E;
@@ -253,6 +264,7 @@ body{
 	height: 69px;
 	border-radius: 10px;
 	padding-top: 10px;
+
 }
 .img-camion-m{
 	width: 97px;
@@ -262,20 +274,24 @@ body{
 }
 .num-cam-m{
 	color: black;
-	font-size: 15px;
+	font-size: 14px;
+}
+.num-cam-m2{
+	color: white;
+	font-size: 14px;
 }
 .div-num-cam-m{
-	margin-left: 23px;
+	margin-left: 20px;
 	margin-top: 5px;
 	position: absolute;
 }
 
-.panel-camiones{
+/*.panel-camiones{
 	display: none;
 }
-#sub-menu2{
+/*#sub-menu2{
 	display: none;
-}
+}*/
 
 .panel-anuncios{
 	height: 45px;
@@ -288,6 +304,136 @@ body{
 .panel-detalle-camion{
 	margin-top: 30px;
 }
+.bloque-detalle-camion{
+	margin-left: 10px;
+	font-family: "futura-book", sans-serif; font-weight: 100;
+}
+.label-span-camion{
+	margin-top: 20px;
+}
+.label-camion{
+	font-size: 41px;
+	color: #0095AA;
+	letter-spacing: 4px;
+}
+
+.label-ide-camion{
+	font-size: 74px;
+	color:white;
+}
+.label-horometro-camion{
+	color: white;
+	font-size: 26px;
+	letter-spacing: 3px;
+}
+.porcentaje_camion{
+	/*position: absolute;*/
+	/*float: left;*/
+	color: white;
+	font-size: 100px;
+	margin-top: -440px;
+	text-align: center;
+	margin-left: -25px;
+}
+.btn-comentario-camion{
+	color:white;
+	font-size: 20px;
+	background-color: #444242;
+	width: 200px;
+	height: 40px;
+	padding: 6px;
+	text-align: center;
+	border-radius: 5px;
+	border: 0px !important;
+}
+.btn-coment{
+	float: left;
+	font-size: 25px;
+	margin-top: -7px;
+	margin-left: 10px;
+}
+.btn-agregar-coment{
+	background-color: #CE6B00 !important;
+	border: 0px;
+}
+.btn-guardar-new-coment{
+	float: right;
+	margin-top: 20px;
+}
+.espacio-comentario{
+	margin-top: 30px;
+	width: 330px;
+	height: 410px;
+	background-color: #373333;
+	border-radius: 7px;
+	padding-top: 20px;
+	padding-left: 20px;
+	padding-right: 20px;
+	overflow: auto;
+}
+.label-btn-coment{
+	float: left;
+	margin-left: 20px;
+	font-family: "futura-book", sans-serif; font-weight: 100;
+	font-size: 20px;
+}
+.coment-linea{
+	color: white;
+	margin-bottom: 20px;
+}
+.agregar-coment-camion{
+	display: none;
+}
+.espacio_linea_combust{
+	margin-top: 19px;
+	/*height: 300px;*/
+}
+.eletemto_porcentaje{
+	height: 266px;
+	width: 350px;
+	z-index: -1;
+	position: absolute;
+}
+.leyenda-bidon{
+	color: white;
+	margin-top: 310px;
+	font-size: 29px;
+	font-family: "futura-book", sans-serif; font-weight: 100;
+	letter-spacing: 4px;
+}
+.btn-comentario-camion:hover{
+	background-color: #CE6B00;
+	cursor: pointer;
+}
+.anuncio-camion{
+	color:  #CE6B00;
+	font-size: 20px;
+	padding-top: 10px;
+}
+.por-camion-peq{
+	color: white;
+	font-size: 20px;
+	position: absolute;
+	margin-top: -50px;
+	/*margin-left: 20px;*/
+	text-align: center;
+	width: 50px;
+}
+.tam-max-cam-red{
+	height: 350px;
+	overflow: auto;
+}
+.tam-max-cam-yel{
+	height: 350px;
+	overflow: auto;
+}
+.tam-max-cam-blue{
+	height: 400px;
+	overflow: auto;
+}
+.camionesAzules_cursor:hover{
+	cursor: pointer;
+}
 /**********  Footer  ********************************************/
 #footer{
 	position: absolute;
@@ -297,7 +443,7 @@ body{
   height: 72px;
   background-color: #3B3837;
   color: white;
-  
+
 }
 .foo-left{
 	padding-left: 0px;

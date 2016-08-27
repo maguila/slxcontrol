@@ -4,7 +4,7 @@ var paginainfo = false;
 var est_equipo = [];
 var i = 0;
 function loadcat(){
-	$.getJSON('php/json/familia.json', function(data){
+	/*$.getJSON('php/json/familia.json', function(data){
 
 		$.each(data, function(p, v){
 			if(v.Nombre == "root"){
@@ -12,11 +12,29 @@ function loadcat(){
 			}
 		 });
 		impCat(datos_cat);
-	});
+	});*/
+	var parametros = {
+            "categoria_id" : 'all'
+    };
+	$.ajax({
+        data:  parametros,
+        url:   'php/leerEquipos2.php',
+        dataType: "json",
+        type:  'post',
+        success:  function (data) {
+          $.each(data, function(p, v){
+          	console.log(v.cp_nombre);
+			if(v.cp_id != 9){
+				datos_cat[p] = v.cp_nombre;
+			}
+		  });
+          impCat(datos_cat);
+        }
+    });
 	
 }
-function loadestadoequipo(nombre){
-	
+function loadestadoequipo(ide){
+	console.log(ide);
 	$.getJSON('php/json/equipos.json', function(data){
 		
 		$.each(data, function(p, v){
@@ -34,18 +52,26 @@ function loadestadoequipo(nombre){
 function loadequipo(categoria){
 
 	var datos_cat_detalle = [];
-	$.getJSON('php/json/familia.json', function(data){
-		var cat = 0;
-		$.each(data, function(p, v){
-			if(v.Categoria == categoria && v.Nombre != "root"){
-				loadestadoequipo(v.Nombre);
-				console.log(v.Nombre);
-				datos_cat_detalle[cat] = v.Nombre;
-				cat++;
-			}
-		 });
-		impequipos(datos_cat_detalle);
-	});
+	var parametros = {
+            "categoria_id" : 'obtenerId',
+            "nombreCategoria": categoria
+    };
+	$.ajax({
+        data:  parametros,
+        url:   'php/leerEquipos2.php',
+        dataType: "json",
+        type:  'post',
+        success:  function (data) {
+          var cat = 0;
+          $.each(data, function(p, v){
+			//loadestadoequipo(v.cp_id);
+			console.log(v.id_mina);
+			datos_cat_detalle[cat] = v.id_mina;
+			cat++;
+		  });
+         impequipos(datos_cat_detalle);
+        }
+    });
 	
 }
 function setCategoria(estado){
